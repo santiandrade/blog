@@ -20,9 +20,11 @@
     <a href="#" class="nav-link" data-nav="about" data-go="about"><span data-l="es">Sobre mí</span><span data-l="en">About</span></a>
     <a href="https://github.com/santiandrade" class="nav-link" target="_blank" rel="noopener">GitHub</a>
     <span class="nav-sep"></span>
-    <button type="button" class="lang-toggle" data-lang-toggle>
-      <span data-l="es">ES · <span class="muted">EN</span></span><span data-l="en"><span class="muted">ES</span> · EN</span>
-    </button>
+    <div class="lang-switch">
+      <button type="button" class="lang-btn" data-set-lang="es">ES</button>
+      <span class="lang-switch-sep">·</span>
+      <button type="button" class="lang-btn" data-set-lang="en">EN</button>
+    </div>
     <button type="button" class="theme-toggle" data-theme-toggle aria-label="Cambiar tema" title="Claro / Oscuro">
       <svg data-icon="sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>
       <svg data-icon="moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>
@@ -192,9 +194,7 @@ Sirve para probar el botón de copiar.</pre>
       <p class="about-muted"><span data-l="es">Segundo párrafo de ejemplo, con contexto adicional sobre el propósito de este blog.</span><span data-l="en">Second example paragraph, with additional context about the purpose of this blog.</span></p>
     </div>
     <div class="about-portrait">
-      <div class="about-portrait-placeholder">
-        <span><span data-l="es">foto de ejemplo</span><span data-l="en">example photo</span></span>
-      </div>
+      <img class="about-portrait-img" src="assets/Santi_ImgProfile.png" alt="Santi Andrade">
     </div>
   </section>
 
@@ -202,20 +202,36 @@ Sirve para probar el botón de copiar.</pre>
     <h2 class="about-section-label"><span data-l="es">Con qué trabajo</span><span data-l="en">What I work with</span></h2>
     <div class="tool-grid">
       <div class="tool-card">
-        <strong>Herramienta 1</strong>
-        <span><span data-l="es">Descripción de ejemplo de la herramienta.</span><span data-l="en">Example description of the tool.</span></span>
+        <strong>Claude Code</strong>
+        <span><span data-l="es">Mi agente principal de desarrollo.</span><span data-l="en">My main development agent.</span></span>
       </div>
       <div class="tool-card">
-        <strong>Herramienta 2</strong>
-        <span><span data-l="es">Descripción de ejemplo de la herramienta.</span><span data-l="en">Example description of the tool.</span></span>
+        <strong>Codex</strong>
+        <span><span data-l="es">Mi agente de apoyo para code reviews y segundas opiniones.</span><span data-l="en">Support agent for code review and second opinions.</span></span>
       </div>
       <div class="tool-card">
-        <strong>Herramienta 3</strong>
-        <span><span data-l="es">Descripción de ejemplo de la herramienta.</span><span data-l="en">Example description of the tool.</span></span>
+        <strong>Hermes</strong>
+        <span><span data-l="es">Mi asistente personal para el día a día.</span><span data-l="en">My personal day-to-day assistant.</span></span>
       </div>
       <div class="tool-card">
-        <strong>Herramienta 4</strong>
-        <span><span data-l="es">Descripción de ejemplo de la herramienta.</span><span data-l="en">Example description of the tool.</span></span>
+        <strong>Obsidian</strong>
+        <span><span data-l="es">Mi segundo cerebro usando el&nbsp;método Karpathy.</span><span data-l="en">My second brain, using the&nbsp;Karpathy method.</span></span>
+      </div>
+      <div class="tool-card">
+        <strong>Unity</strong>
+        <span><span data-l="es">Game Engine para el desarrollo de videojuegos.</span><span data-l="en">Game engine for building videogames.</span></span>
+      </div>
+      <div class="tool-card">
+        <strong>JetBrains Rider</strong>
+        <span><span data-l="es">Mi IDE de desarrollo principal.</span><span data-l="en">My main development IDE.</span></span>
+      </div>
+      <div class="tool-card">
+        <strong>Notion</strong>
+        <span><span data-l="es">Lugar donde guardo toda mi documentación interna.</span><span data-l="en">Where I keep all my internal documentation.</span></span>
+      </div>
+      <div class="tool-card">
+        <strong>Slack</strong>
+        <span><span data-l="es">Canal de comunicación con equipos.</span><span data-l="en">Team communication channel.</span></span>
       </div>
     </div>
   </section>
@@ -224,7 +240,6 @@ Sirve para probar el botón de copiar.</pre>
     <h2 class="about-section-label"><span data-l="es">Escríbeme</span><span data-l="en">Get in touch</span></h2>
     <div class="contact-links">
       <a href="mailto:santiandrade@hotmail.com">santiandrade@hotmail.com</a>
-      <a href="https://github.com/santiandrade" target="_blank" rel="noopener">GitHub</a>
     </div>
   </section>
 </main>
