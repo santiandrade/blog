@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;800&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+<style>
+:root{--bg:#f3f2f2;--surface:#eae9e9;--ink:#201e1d;--muted:#605d5d;--line:rgba(32,30,29,.4);--hair:rgba(32,30,29,.16);--accent:#ec3013;--accent-deep:#ae1800;--code-bg:#eae9e9}
+html[data-theme="dark"]{--bg:#1a1918;--surface:#232120;--ink:#f3f2f2;--muted:#a5a1a1;--line:rgba(243,242,242,.34);--hair:rgba(243,242,242,.14);--accent:#ff563c;--accent-deep:#ff9783;--code-bg:#232120}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Archivo",system-ui,sans-serif;font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:"Archivo",system-ui,sans-serif;font-weight:800;letter-spacing:-.02em;line-height:1.08;margin:0}
+p{margin:0}
+a{color:var(--accent-deep);text-decoration:none;border-bottom:1px solid var(--hair)}
+a:hover{color:var(--accent);border-bottom-color:var(--accent)}
+button{font-family:inherit}
+::selection{background:var(--accent);color:#fff}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+html[data-lang="en"] [data-l="es"]{display:none}
+html:not([data-theme="dark"]) [data-icon="moon"]{display:none}
+html[data-theme="dark"] [data-icon="sun"]{display:none}
+html:not([data-lang="en"]) [data-l="en"]{display:none}
+html:not([data-route]) [data-nav="home"],html[data-route="home"] [data-nav="home"],html[data-route="post"] [data-nav="home"],html[data-route="about"] [data-nav="about"]{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:5px;text-decoration-color:var(--accent)}
+[data-screen]{display:none}
+@media (max-width:820px){
+[data-r="page"]{padding-left:18px!important;padding-right:18px!important}
+[data-r="head"]{grid-template-columns:1fr!important;align-items:start!important;gap:14px!important}
+[data-r="head"] nav{flex-wrap:wrap;gap:14px 18px!important}
+[data-r="cols"],[data-r="search"],[data-r="banner"],[data-r="three"],[data-r="pair"],[data-r="doc"]{grid-template-columns:minmax(0,1fr)!important}
+[data-r="doc"]>article,[data-r="card"]>div{min-width:0}
+[data-r="cols"],[data-r="doc"]{gap:26px!important}
+[data-r="search"]{gap:16px!important}
+[data-r="doc"]{padding-top:28px!important}
+[data-r="doc"]>aside{position:static!important;top:auto!important}
+[data-r="card"]{grid-template-columns:1fr!important;gap:14px!important;padding:26px 0!important}
+[data-r="card"]>div:first-child{flex-direction:row!important;flex-wrap:wrap;gap:14px!important}
+[data-r="card"] h2{font-size:27px!important}
+[data-r="three"]>div{border-right:0!important;border-bottom:2px solid var(--line)}
+[data-r="three"]>div:last-child{border-bottom:0!important}
+[data-r="banner"]{padding:36px 20px!important;margin-top:40px!important;gap:24px!important;align-items:start!important}
+[data-r="banner"] p{white-space:normal!important;font-size:clamp(24px,6.4vw,34px)!important}
+[data-r="pair"]>a:last-child{text-align:left!important}
+[data-tagbar] button{padding:9px 12px!important}
+[data-screen="post"] table{font-size:13px!important;display:block;overflow-x:auto;white-space:nowrap}
+[data-screen="post"] pre{max-width:100%}
+[data-screen="post"] th,[data-screen="post"] td{padding-left:8px!important;padding-right:8px!important}
+[data-screen="post"] pre{font-size:11.5px!important}
+[data-screen="post"] h1{font-size:clamp(30px,8vw,42px)!important}
+[data-screen="post"] h2{font-size:25px!important}
+[data-screen="post"] article{gap:24px!important}
+footer{font-size:10px!important}
+}
+@media (max-width:520px){
+[data-r="head"] nav{font-size:13px!important;gap:12px 14px!important}
+[data-r="head"] nav>span[style*="width:1px"]{display:none}
+
+}
+
+html:not([data-route]) [data-screen="home"],html[data-route="home"] [data-screen="home"],html[data-route="post"] [data-screen="post"],html[data-route="about"] [data-screen="about"]{display:block}
+</style>
+</helmet>
+
+<div data-r="page" style="max-width:1180px;margin:0 auto;padding:0 32px 96px">
+
+<header data-r="head" style="display:grid;grid-template-columns:1fr auto;align-items:end;gap:24px;padding:28px 0 18px;border-bottom:2px solid var(--line)">
+  <div style="display:flex;flex-direction:column;gap:2px">
+    <a href="#" onClick="{{ goHome }}" style="font-weight:800;font-size:21px;letter-spacing:-.02em;color:var(--ink);border:0;text-transform:uppercase">SANTI ANDRADE / BLOG</a>
+    <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)"><span data-l="es">MIS NOTAS Y REFLEXIONES SOBRE IA</span><span data-l="en">MY NOTES AND REFLECTIONS ON AI</span></span>
+  </div>
+  <nav style="display:flex;align-items:center;gap:22px;font-size:14px">
+    <a href="#" data-nav="home" onClick="{{ goHome }}" style="color:var(--ink);border-bottom:2px solid transparent" style-hover="border-bottom-color:var(--accent);color:var(--accent)"><span data-l="es">Posts</span><span data-l="en">Posts</span></a>
+    <a href="#" data-nav="about" onClick="{{ goAbout }}" style="color:var(--ink);border-bottom:2px solid transparent" style-hover="border-bottom-color:var(--accent);color:var(--accent)"><span data-l="es">Sobre mí</span><span data-l="en">About</span></a>
+    <a href="https://github.com" style="color:var(--ink);border-bottom:2px solid transparent" style-hover="border-bottom-color:var(--accent);color:var(--accent)">GitHub</a>
+    <span style="width:1px;height:20px;background:var(--line)"></span>
+    <button onClick="{{ toggleLang }}" style="display:flex;align-items:center;gap:6px;background:none;border:0;color:var(--ink);padding:5px 0;font-size:11px;font-family:'IBM Plex Mono',monospace;letter-spacing:.1em;cursor:pointer" style-hover="color:var(--accent)">
+      <span data-l="es">ES · <span style="color:var(--muted)">EN</span></span><span data-l="en"><span style="color:var(--muted)">ES</span> · EN</span>
+    </button>
+    <button onClick="{{ toggleTheme }}" aria-label="Cambiar tema" title="Claro / Oscuro" style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;background:none;border:0;color:var(--ink);padding:0;cursor:pointer" style-hover="color:var(--accent)">
+      <svg data-icon="sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>
+      <svg data-icon="moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>
+    </button>
+  </nav>
+</header>
+
+<!-- ─────────── HOME ─────────── -->
+<main data-screen="home" data-screen-label="Home">
+  <section data-r="cols" style="display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:48px;padding:56px 0 44px">
+    <h1 style="font-size:clamp(38px,5.2vw,68px)">
+      <span data-l="es">Delega la ejecución a la IA, nunca tu criterio.</span>
+      <span data-l="en">AI doesn't save me time. It forces me to think better.</span>
+    </h1>
+    <div style="display:flex;flex-direction:column;gap:18px;align-self:end">
+      <p style="color:var(--muted);text-wrap:pretty">
+        <span data-l="es">Escribo sobre lo que construyo con IA y reflexiono sobre ello. Casos de uso, herramientas, desarrollo, pensamientos...<br></span>
+        <span data-l="en">I write about what I build with AI when nobody's watching: a second brain in Obsidian, agents and skills in Claude Code, my own companion with Hermes. Every post starts with the why and ends with a reproducible setup.</span>
+      </p>
+      <p style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.06em;color:var(--muted)">
+        <span data-l="es">3 posts · actualizado julio 2026</span><span data-l="en">3 posts · updated July 2026</span>
+      </p>
+    </div>
+  </section>
+
+  <section data-r="search" style="display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:center;padding:18px 0 26px">
+    <input type="search" data-search="" onInput="{{ onSearch }}" placeholder="Buscar…" style="width:100%;background:transparent;border:0;border-bottom:2px solid var(--hair);color:var(--ink);font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.04em;padding:8px 0;outline:none" style-focus="border-bottom-color:var(--accent)">
+    <div data-tagbar="" style="display:flex;flex-wrap:wrap;gap:8px">
+      <button onClick="{{ onTag }}" data-tag="all" style="background:var(--ink);color:var(--bg);border:2px solid var(--ink);padding:5px 11px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer">Todo</button>
+      <button onClick="{{ onTag }}" data-tag="obsidian" style="background:none;color:var(--ink);border:2px solid var(--hair);padding:5px 11px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer" style-hover="border-color:var(--accent);color:var(--accent)">Obsidian</button>
+      <button onClick="{{ onTag }}" data-tag="claude-code" style="background:none;color:var(--ink);border:2px solid var(--hair);padding:5px 11px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer" style-hover="border-color:var(--accent);color:var(--accent)">Claude Code</button>
+      <button onClick="{{ onTag }}" data-tag="agentes" style="background:none;color:var(--ink);border:2px solid var(--hair);padding:5px 11px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer" style-hover="border-color:var(--accent);color:var(--accent)">Agentes</button>
+      <button onClick="{{ onTag }}" data-tag="hermes" style="background:none;color:var(--ink);border:2px solid var(--hair);padding:5px 11px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer" style-hover="border-color:var(--accent);color:var(--accent)">Hermes</button>
+    </div>
+  </section>
+
+  <div data-postlist="" style="display:flex;flex-direction:column">
+    <article data-r="card" data-post-card="" data-tags="obsidian agentes" data-terms="segundo cerebro obsidian notas zettelkasten second brain" style="display:grid;grid-template-columns:130px minmax(0,1fr) 180px;gap:32px;padding:34px 0;border-bottom:2px solid var(--line)">
+      <div style="display:flex;flex-direction:column;gap:6px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;color:var(--muted)">
+        <span style="color:var(--accent)">01</span>
+        <span>2026.07.18</span>
+        <span><span data-l="es">14 min</span><span data-l="en">14 min read</span></span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <h2 style="font-size:34px"><a href="#" onClick="{{ goPost }}" style="color:var(--ink);border:0" style-hover="color:var(--accent)"><span data-l="es">Trabajando con un segundo cerebro</span><span data-l="en">Working with a second brain</span></a></h2>
+        <p style="color:var(--muted);max-width:60ch;text-wrap:pretty"><span data-l="es">Llevo dos años volcando todo en Obsidian y solo el último ha servido de algo. La diferencia no fue el plugin: fue aceptar que un segundo cerebro sin criterio propio es un vertedero ordenado.</span><span data-l="en">I've been dumping everything into Obsidian for two years and only the last one was worth anything. The difference wasn't a plugin: it was accepting that a second brain without your own judgment is just a tidy landfill.</span></p>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;align-content:start;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase">
+        <span style="border:2px solid var(--hair);padding:3px 8px;color:var(--muted)">Obsidian</span>
+        <span style="border:2px solid var(--hair);padding:3px 8px;color:var(--muted)">Agentes</span>
+      </div>
+    </article>
+
+    <article data-r="card" data-post-card="" data-tags="claude-code agentes" data-terms="agentes skills claude code subagentes automatizacion agents" style="display:grid;grid-template-columns:130px minmax(0,1fr) 180px;gap:32px;padding:34px 0;border-bottom:2px solid var(--line)">
+      <div style="display:flex;flex-direction:column;gap:6px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;color:var(--muted)">
+        <span style="color:var(--accent)">02</span>
+        <span>2026.06.29</span>
+        <span><span data-l="es">21 min</span><span data-l="en">21 min read</span></span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <h2 style="font-size:34px"><a href="#" onClick="{{ goPost }}" style="color:var(--ink);border:0" style-hover="color:var(--accent)"><span data-l="es">Agentes y skills para facilitarte la vida</span><span data-l="en">Agents and skills to make your life easier</span></a></h2>
+        <p style="color:var(--muted);max-width:60ch;text-wrap:pretty"><span data-l="es">Escribí catorce skills y borré nueve. Las cinco que quedan comparten una propiedad: describen un criterio, no una tarea. Aquí están, con el árbol de decisiones que usé para podarlas.</span><span data-l="en">I wrote fourteen skills and deleted nine. The five that survived share one property: they describe judgment, not a task. Here they are, with the decision tree I used to prune them.</span></p>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;align-content:start;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase">
+        <span style="border:2px solid var(--hair);padding:3px 8px;color:var(--muted)">Claude Code</span>
+        <span style="border:2px solid var(--hair);padding:3px 8px;color:var(--muted)">Agentes</span>
+      </div>
+    </article>
+
+    <article data-r="card" data-post-card="" data-tags="hermes agentes" data-terms="hermes agente propio compañero local llm own agent" style="display:grid;grid-template-columns:130px minmax(0,1fr) 180px;gap:32px;padding:34px 0;border-bottom:2px solid var(--line)">
+      <div style="display:flex;flex-direction:column;gap:6px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;color:var(--muted)">
+        <span style="color:var(--accent)">03</span>
+        <span>2026.05.11</span>
+        <span><span data-l="es">17 min</span><span data-l="en">17 min read</span></span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <h2 style="font-size:34px"><a href="#" onClick="{{ goPost }}" style="color:var(--ink);border:0" style-hover="color:var(--accent)"><span data-l="es">Hermes: tu fiel compañero</span><span data-l="en">Hermes: your faithful companion</span></a></h2>
+        <p style="color:var(--muted);max-width:60ch;text-wrap:pretty"><span data-l="es">Construir tu propio agente no es un ejercicio técnico, es un ejercicio de autoconocimiento: tienes que explicarle por escrito cómo trabajas. Casi nadie lo sabe hasta que lo intenta.</span><span data-l="en">Building your own agent isn't a technical exercise, it's a self-knowledge one: you have to write down how you work. Almost nobody knows until they try.</span></p>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;align-content:start;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase">
+        <span style="border:2px solid var(--hair);padding:3px 8px;color:var(--muted)">Hermes</span>
+        <span style="border:2px solid var(--hair);padding:3px 8px;color:var(--muted)">Agentes</span>
+      </div>
+    </article>
+
+    <p data-empty="" style="display:none;padding:40px 0;border-bottom:2px solid var(--line);font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--muted)"><span data-l="es">Nada por aquí todavía.</span><span data-l="en">Nothing here yet.</span></p>
+  </div>
+
+  <section data-r="banner" style="display:grid;background:var(--accent);color:#fff;padding:64px 40px;margin-top:56px">
+    <div style="display:flex;flex-direction:column;gap:20px">
+      <p style="font-weight:800;font-size:clamp(18px,2.55vw,34px);line-height:1.18;letter-spacing:-.02em;text-wrap:pretty"><span data-l="es">«La inteligencia artificial es una herramienta poderosa que puede utilizarse para el bien o para el mal. Es importante que utilicemos esta tecnología de manera responsable y ética.»</span><span data-l="en">“Artificial intelligence is a powerful tool that can be used for good or for ill. It is important that we use this technology responsibly and ethically.”</span></p>
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;opacity:.8">Alan Turing</span>
+    </div>
+  </section>
+</main>
+
+<!-- ─────────── POST ─────────── -->
+<main data-screen="post" data-screen-label="Post">
+  <div style="padding:28px 0 0">
+    <a href="#" onClick="{{ goHome }}" style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);border:0" style-hover="color:var(--accent)"><span data-l="es">← Todos los posts</span><span data-l="en">← All posts</span></a>
+  </div>
+
+  <header style="padding:24px 0 28px;border-bottom:2px solid var(--line)">
+    <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:16px"><span data-l="es">Post 01 · Segundo cerebro</span><span data-l="en">Post 01 · Second brain</span></p>
+    <h1 style="font-size:clamp(36px,5vw,62px);max-width:22ch"><span data-l="es">Trabajando con un segundo cerebro</span><span data-l="en">Working with a second brain</span></h1>
+    <div style="display:flex;flex-wrap:wrap;gap:28px;margin-top:26px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)">
+      <span>2026.07.18</span>
+      <span><span data-l="es">14 min de lectura</span><span data-l="en">14 min read</span></span>
+      <span>Obsidian · Agentes</span>
+    </div>
+  </header>
+
+  <div data-r="doc" style="display:grid;grid-template-columns:200px minmax(0,1fr);gap:56px;padding-top:44px">
+    <aside style="position:sticky;top:32px;align-self:start;display:flex;flex-direction:column;gap:10px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em">
+      <span style="text-transform:uppercase;color:var(--muted);padding-bottom:10px;border-bottom:2px solid var(--line)"><span data-l="es">Contenido</span><span data-l="en">Contents</span></span>
+      <a href="#s1" style="color:var(--ink);border:0" style-hover="color:var(--accent)">01 <span data-l="es">El vertedero ordenado</span><span data-l="en">The tidy landfill</span></a>
+      <a href="#s2" style="color:var(--ink);border:0" style-hover="color:var(--accent)">02 <span data-l="es">La arquitectura</span><span data-l="en">The architecture</span></a>
+      <a href="#s3" style="color:var(--ink);border:0" style-hover="color:var(--accent)">03 <span data-l="es">El setup</span><span data-l="en">The setup</span></a>
+      <a href="#s4" style="color:var(--ink);border:0" style-hover="color:var(--accent)">04 <span data-l="es">Qué salió mal</span><span data-l="en">What went wrong</span></a>
+    </aside>
+
+    <article style="max-width:70ch;display:flex;flex-direction:column;gap:30px">
+      <p style="font-size:23px;line-height:1.5;text-wrap:pretty"><span data-l="es">La promesa del segundo cerebro es que dejarás de olvidar. La realidad es que dejarás de decidir: cuando todo está guardado, nada está elegido. Este post es el registro de cómo desmonté mi propia bóveda y volví a montarla al revés.</span><span data-l="en">The promise of a second brain is that you'll stop forgetting. The reality is you'll stop deciding: when everything is saved, nothing is chosen. This post is the record of how I tore my own vault apart and rebuilt it backwards.</span></p>
+
+      <h2 id="s1" style="font-size:30px;padding-top:14px;border-top:2px solid var(--line)">01 · <span data-l="es">El vertedero ordenado</span><span data-l="en">The tidy landfill</span></h2>
+      <p style="text-wrap:pretty"><span data-l="es">Durante el primer año mi bóveda creció a 3.400 notas. Podía encontrar cualquier cosa y no podía pensar con nada. El recorte diario de artículos me daba la sensación de progreso sin ninguno de sus costes: leer, discrepar, reescribir con mis palabras.</span><span data-l="en">In the first year my vault grew to 3,400 notes. I could find anything and think with nothing. Daily clipping gave me the feeling of progress without any of its costs: reading, disagreeing, rewriting in my own words.</span></p>
+      <p style="text-wrap:pretty"><span data-l="es">Lo que cambió no fue el sistema de carpetas. Fue una regla: una nota solo existe si puedo escribir, en una línea, la pregunta que deja abierta. Las 3.400 se convirtieron en 260.</span><span data-l="en">What changed wasn't the folder system. It was one rule: a note only exists if I can write, in one line, the question it leaves open. The 3,400 became 260.</span></p>
+
+      <figure style="margin:0;display:flex;flex-direction:column;gap:10px">
+        <div style="aspect-ratio:16/9;background-image:repeating-linear-gradient(135deg,var(--hair) 0 1px,transparent 1px 9px);border:2px solid var(--line);display:flex;align-items:flex-end;padding:16px">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);background:var(--bg);padding:4px 8px">captura · grafo de obsidian, 3.400 notas</span>
+        </div>
+        <figcaption style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted)"><span data-l="es">Fig. 1 — El grafo antes de la poda. Bonito, inútil.</span><span data-l="en">Fig. 1 — The graph before pruning. Pretty, useless.</span></figcaption>
+      </figure>
+
+      <h2 id="s2" style="font-size:30px;padding-top:14px;border-top:2px solid var(--line)">02 · <span data-l="es">La arquitectura</span><span data-l="en">The architecture</span></h2>
+      <p style="text-wrap:pretty"><span data-l="es">La bóveda tiene ahora tres capas y un agente que solo puede escribir en la primera. Todo lo que sube de capa pasa por mí. Esa fricción es el producto, no un defecto.</span><span data-l="en">The vault now has three layers and an agent that may only write to the first one. Anything moving up a layer goes through me. That friction is the product, not a bug.</span></p>
+
+      <div data-r="three" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:2px solid var(--line)">
+        <div style="padding:20px;border-right:2px solid var(--line);display:flex;flex-direction:column;gap:8px">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)">01 Inbox</span>
+          <strong style="font-weight:600"><span data-l="es">El agente escribe</span><span data-l="en">The agent writes</span></strong>
+          <p style="font-size:14px;color:var(--muted)"><span data-l="es">Capturas crudas, transcripciones, enlaces. Caducan en 14 días.</span><span data-l="en">Raw captures, transcripts, links. They expire in 14 days.</span></p>
+        </div>
+        <div style="padding:20px;border-right:2px solid var(--line);display:flex;flex-direction:column;gap:8px">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)">02 Notas</span>
+          <strong style="font-weight:600"><span data-l="es">Yo escribo</span><span data-l="en">I write</span></strong>
+          <p style="font-size:14px;color:var(--muted)"><span data-l="es">Una idea por nota, en primera persona, con lo que no entiendo marcado.</span><span data-l="en">One idea per note, first person, with what I don't understand marked.</span></p>
+        </div>
+        <div style="padding:20px;display:flex;flex-direction:column;gap:8px">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)">03 Posts</span>
+          <strong style="font-weight:600"><span data-l="es">Salida pública</span><span data-l="en">Public output</span></strong>
+          <p style="font-size:14px;color:var(--muted)"><span data-l="es">Lo que llega aquí se publica en este blog. Nada más existe.</span><span data-l="en">Whatever reaches here gets published on this blog. Nothing else exists.</span></p>
+        </div>
+      </div>
+
+      <h2 id="s3" style="font-size:30px;padding-top:14px;border-top:2px solid var(--line)">03 · <span data-l="es">El setup</span><span data-l="en">The setup</span></h2>
+      <p style="text-wrap:pretty"><span data-l="es">El agente de captura vive en <code style="font-family:'IBM Plex Mono',monospace;font-size:.88em;background:var(--code-bg);padding:1px 5px">.claude/agents/</code> y tiene prohibido tocar las capas 2 y 3. Su prompt cabe en veinte líneas:</span><span data-l="en">The capture agent lives in <code style="font-family:'IBM Plex Mono',monospace;font-size:.88em;background:var(--code-bg);padding:1px 5px">.claude/agents/</code> and is forbidden from touching layers 2 and 3. Its prompt fits in twenty lines:</span></p>
+
+      <div style="position:relative;border:2px solid var(--line);background:var(--code-bg)">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-bottom:2px solid var(--line)">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">.claude/agents/inbox-curator.md</span>
+          <button onClick="{{ copyCode }}" style="background:none;border:2px solid var(--hair);color:var(--ink);padding:3px 9px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer" style-hover="border-color:var(--accent);color:var(--accent)">Copy</button>
+        </div>
+        <pre style="margin:0;padding:18px 14px;overflow-x:auto;font-family:'IBM Plex Mono',monospace;font-size:13px;line-height:1.7">---
+name: inbox-curator
+description: Normaliza capturas crudas en 00-inbox/
+tools: Read, Write, Glob
+---
+
+Solo escribes en 00-inbox/. Nunca edites 01-notas/ ni 02-posts/.
+
+Para cada captura nueva:
+  1. Título en una línea, sin adjetivos.
+  2. Cita literal de la frase que la justifica.
+  3. Una pregunta que la nota deja abierta.
+  4. Frontmatter: source, date, expires (+14d).
+
+Si no puedes escribir la pregunta, no crees la nota.</pre>
+      </div>
+
+      <p style="text-wrap:pretty"><span data-l="es">Comparé tres formas de mover notas entre capas antes de quedarme con la manual:</span><span data-l="en">I compared three ways to move notes between layers before settling on the manual one:</span></p>
+
+      <table style="width:100%;border-collapse:collapse;font-size:15px">
+        <thead>
+          <tr>
+            <th style="text-align:left;padding:10px 12px 10px 0;border-bottom:2px solid var(--line);font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)"><span data-l="es">Método</span><span data-l="en">Method</span></th>
+            <th style="text-align:left;padding:10px 12px;border-bottom:2px solid var(--line);font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)"><span data-l="es">Coste</span><span data-l="en">Cost</span></th>
+            <th style="text-align:left;padding:10px 0 10px 12px;border-bottom:2px solid var(--line);font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)"><span data-l="es">Retención a 30 días</span><span data-l="en">30-day retention</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding:12px 12px 12px 0;border-bottom:1px solid var(--hair)"><span data-l="es">Resumen automático</span><span data-l="en">Auto-summary</span></td>
+            <td style="padding:12px;border-bottom:1px solid var(--hair);color:var(--muted)">0 min</td>
+            <td style="padding:12px 0 12px 12px;border-bottom:1px solid var(--hair);color:var(--muted)">~9%</td>
+          </tr>
+          <tr>
+            <td style="padding:12px 12px 12px 0;border-bottom:1px solid var(--hair)"><span data-l="es">Diálogo con el agente</span><span data-l="en">Dialogue with the agent</span></td>
+            <td style="padding:12px;border-bottom:1px solid var(--hair);color:var(--muted)">4 min</td>
+            <td style="padding:12px 0 12px 12px;border-bottom:1px solid var(--hair);color:var(--muted)">~48%</td>
+          </tr>
+          <tr>
+            <td style="padding:12px 12px 12px 0;border-bottom:2px solid var(--line);font-weight:600"><span data-l="es">Reescritura a mano</span><span data-l="en">Rewrite by hand</span></td>
+            <td style="padding:12px;border-bottom:2px solid var(--line);color:var(--muted)">11 min</td>
+            <td style="padding:12px 0 12px 12px;border-bottom:2px solid var(--line);color:var(--accent);font-weight:600">~90%</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2 id="s4" style="font-size:30px;padding-top:14px;border-top:2px solid var(--line)">04 · <span data-l="es">Qué salió mal</span><span data-l="en">What went wrong</span></h2>
+      <div style="border-left:4px solid var(--accent);padding:4px 0 4px 20px;display:flex;flex-direction:column;gap:10px">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)"><span data-l="es">Lo que salió mal</span><span data-l="en">What went wrong</span></span>
+        <p style="text-wrap:pretty"><span data-l="es">Dejé que el agente escribiera enlaces internos. En dos semanas la bóveda tenía 700 conexiones que yo no había pensado, y empecé a confiar en ellas. Borré todas y le quité el permiso: los enlaces son la parte que no se delega.</span><span data-l="en">I let the agent write internal links. Within two weeks the vault had 700 connections I hadn't thought of, and I started trusting them. I deleted them all and revoked the permission: links are the part you don't delegate.</span></p>
+      </div>
+
+      <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;border:2px solid var(--line);padding:20px;margin-top:8px">
+        <div style="display:flex;flex-direction:column;gap:4px">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;color:var(--muted)">github.com/santiandrade/segundo-cerebro</span>
+          <span style="font-size:14px;color:var(--muted)"><span data-l="es">Plantilla de bóveda, agente y frontmatter.</span><span data-l="en">Vault template, agent and frontmatter.</span></span>
+        </div>
+        <a href="https://github.com" style="background:var(--accent);color:#fff;border:0;padding:12px 18px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase" style-hover="background:var(--accent-deep);color:#fff">Clonar →</a>
+      </div>
+
+      <nav data-r="pair" style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;border-top:2px solid var(--line);padding-top:24px;margin-top:24px">
+        <a href="#" onClick="{{ goHome }}" style="display:flex;flex-direction:column;gap:6px;color:var(--ink);border:0" style-hover="color:var(--accent)">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)"><span data-l="es">Siguiente</span><span data-l="en">Next</span></span>
+          <strong style="font-size:20px;font-weight:800;letter-spacing:-.01em"><span data-l="es">Agentes y skills para facilitarte la vida</span><span data-l="en">Agents and skills to make your life easier</span></strong>
+        </a>
+        
+      </nav>
+    </article>
+  </div>
+</main>
+
+<!-- ─────────── ABOUT ─────────── -->
+<main data-screen="about" data-screen-label="Sobre mí">
+  
+
+  <section data-r="cols" style="display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:56px;padding:36px 0 44px;border-bottom:2px solid var(--line)">
+    <div style="display:flex;flex-direction:column;gap:26px">
+      <h1 style="font-size:clamp(36px,4.6vw,58px)"><span data-l="es">Escribo para entender lo que ya he construido.</span><span data-l="en">I write to understand what I've already built.</span></h1>
+      <p style="font-size:20px;line-height:1.55;text-wrap:pretty;max-width:56ch"><span data-l="es">Soy Santi Andrade. No trabajo en IA: trabajo con IA, todos los días, en mis propios proyectos. Este blog es el cuaderno donde compruebo si lo que monté tiene sentido cuando hay que explicarlo.</span><span data-l="en">I'm Santi Andrade. I don't work in AI: I work with AI, every day, on my own projects. This blog is the notebook where I check whether what I built holds up once I have to explain it.</span></p>
+      <p style="color:var(--muted);text-wrap:pretty;max-width:60ch"><span data-l="es">Publico solo cuando algo lleva un mes funcionando. Si un setup no ha sobrevivido a un mes de uso real, todavía no es una idea: es entusiasmo.</span><span data-l="en">I only publish once something has been running for a month. If a setup hasn't survived a month of real use, it isn't an idea yet: it's enthusiasm.</span></p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div style="aspect-ratio:4/5;background-image:repeating-linear-gradient(135deg,var(--hair) 0 1px,transparent 1px 9px);border:2px solid var(--line);display:flex;align-items:flex-end;padding:16px;filter:grayscale(1) contrast(1.08)">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);background:var(--bg);padding:4px 8px">HOLA, SOY SANTI!</span>
+      </div>
+      
+    </div>
+  </section>
+
+  <section data-r="cols" style="display:grid;grid-template-columns:200px minmax(0,1fr);gap:56px;padding:44px 0;border-bottom:2px solid var(--line)">
+    <h2 style="font-size:13px;font-family:'IBM Plex Mono',monospace;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)"><span data-l="es">Con qué trabajo</span><span data-l="en">What I work with</span></h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:2px;background:var(--line)">
+      
+      <div style="background:var(--bg);padding:18px;display:flex;flex-direction:column;gap:6px">
+        <strong style="font-weight:600">Claude Code</strong>
+        <span style="font-size:14px;color:var(--muted)"><span data-l="es">Mi agente principal de desarrollo.</span><span data-l="en">My main development agent.</span></span>
+      </div>
+      <div style="background:var(--bg);padding:18px;display:flex;flex-direction:column;gap:6px">
+        <strong style="font-weight:600">Codex</strong>
+        <span style="font-size:14px;color:var(--muted)"><span data-l="es">Mi agente de apoyo para code reviews y segundas opiniones.</span><span data-l="en">Support agent for code review and second opinions.</span></span>
+      </div><div style="background:var(--bg);padding:18px;display:flex;flex-direction:column;gap:6px">
+        <strong style="font-weight: 600;">Hermes</strong>
+        <span style="font-size: 14px; color: var(--muted);"><span data-l="es">Mi asistente personal para el día a día.</span><span data-l="en">My personal day-to-day assistant.</span></span>
+      </div><div style="background:var(--bg);padding:18px;display:flex;flex-direction:column;gap:6px">
+        <strong style="font-weight:600">Obsidian</strong>
+        <span style="font-size:14px;color:var(--muted)"><span data-l="es">Mi segundo cerebro usando el&nbsp;método Karpathy.</span><span data-l="en">My second brain, using the&nbsp;Karpathy method.</span></span>
+      </div><div style="background:var(--bg);padding:18px;display:flex;flex-direction:column;gap:6px">
+        <strong style="font-weight:600">Unity</strong>
+        <span style="font-size:14px;color:var(--muted)"><span data-l="es">Game Engine para el desarrollo de videojuegos.</span><span data-l="en">Game engine for building videogames.</span></span>
+      </div><div style="background:var(--bg);padding:18px;display:flex;flex-direction:column;gap:6px">
+        <strong style="font-weight:600">JetBrains Rider</strong>
+        <span style="font-size:14px;color:var(--muted)"><span data-l="es">Mi IDE de desarrollo principal.</span><span data-l="en">My main development IDE.</span></span>
+      </div>
+      <div style="background:var(--bg);padding:18px;display:flex;flex-direction:column;gap:6px">
+        <strong style="font-weight:600">Notion</strong>
+        <span style="font-size:14px;color:var(--muted)"><span data-l="es">Lugar donde guardo toda mi documentación interna.</span><span data-l="en">Where I keep all my internal documentation.</span></span>
+      </div><div style="background:var(--bg);padding:18px;display:flex;flex-direction:column;gap:6px">
+        <strong style="font-weight:600">Slack</strong>
+        <span style="font-size:14px;color:var(--muted)"><span data-l="es">Canal de comunicación con equipos.</span><span data-l="en">Team communication channel.</span></span>
+      </div>
+    </div>
+  </section>
+
+  <section data-r="cols" style="display:grid;grid-template-columns:200px minmax(0,1fr);gap:56px;padding:44px 0">
+    <h2 style="font-size:13px;font-family:'IBM Plex Mono',monospace;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)"><span data-l="es">Escríbeme</span><span data-l="en">Get in touch</span></h2>
+    <div style="display:flex;flex-wrap:wrap;gap:28px;font-size:18px">
+      <a href="mailto:santiandrade@hotmail.com">santiandrade@hotmail.com</a>
+      
+      <a href="#" onClick="{{ goHome }}"><span data-l="en">Back to the posts</span></a>
+    </div>
+  </section>
+</main>
+
+<footer style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;border-top:2px solid var(--line);padding-top:20px;margin-top:56px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)">
+  <span>© 2026 Santi Andrade</span>
+</footer>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#ec3013&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;#ec3013&quot;,&quot;#1f5fd6&quot;,&quot;#0f7a5a&quot;,&quot;#201e1d&quot;],&quot;section&quot;:&quot;Marca&quot;},&quot;defaultLang&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;es&quot;,&quot;options&quot;:[&quot;es&quot;,&quot;en&quot;],&quot;tsType&quot;:&quot;\&quot;es\&quot; | \&quot;en\&quot;&quot;,&quot;section&quot;:&quot;Idioma&quot;},&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;light&quot;,&quot;options&quot;:[&quot;light&quot;,&quot;dark&quot;],&quot;tsType&quot;:&quot;\&quot;light\&quot; | \&quot;dark\&quot;&quot;,&quot;section&quot;:&quot;Marca&quot;}}">
+class Component extends DCLogic {
+  componentDidMount() {
+    const r = document.documentElement;
+    r.dataset.route = "home";
+    r.dataset.theme = localStorage.getItem("sa-theme") || this.props.theme || "light";
+    r.dataset.lang = localStorage.getItem("sa-lang") || this.props.defaultLang || "es";
+    this.syncPlaceholder(r.dataset.lang);
+    if (this.props.accent) r.style.setProperty("--accent", this.props.accent);
+  }
+  syncPlaceholder(lang) {
+    const el = document.querySelector("[data-search]");
+    if (el) el.placeholder = lang === "en" ? "Search…" : "Buscar…";
+  }
+  go(route) {
+    return (e) => { e.preventDefault(); document.documentElement.dataset.route = route; window.scrollTo(0, 0); };
+  }
+  renderVals() {
+    const root = document.documentElement;
+    return {
+      goHome: this.go("home"),
+      goPost: this.go("post"),
+      goAbout: this.go("about"),
+      toggleTheme: () => {
+        const next = root.dataset.theme === "dark" ? "light" : "dark";
+        root.dataset.theme = next;
+        localStorage.setItem("sa-theme", next);
+      },
+      toggleLang: () => {
+        const next = root.dataset.lang === "en" ? "es" : "en";
+        root.dataset.lang = next;
+        this.syncPlaceholder(next);
+        localStorage.setItem("sa-lang", next);
+      },
+      onSearch: (e) => { this.query = e.target.value.toLowerCase().trim(); this.filter(); },
+      onTag: (e) => {
+        const bar = e.currentTarget.parentElement;
+        this.tag = e.currentTarget.dataset.tag;
+        bar.querySelectorAll("[data-tag]").forEach((b) => {
+          const on = b.dataset.tag === this.tag;
+          b.style.background = on ? "var(--ink)" : "none";
+          b.style.color = on ? "var(--bg)" : "var(--ink)";
+          b.style.borderColor = on ? "var(--ink)" : "var(--hair)";
+        });
+        this.filter();
+      },
+      copyCode: (e) => {
+        const btn = e.currentTarget;
+        const code = btn.closest("div").parentElement.querySelector("pre");
+        if (!code) return;
+        if (navigator.clipboard) navigator.clipboard.writeText(code.textContent);
+        const prev = btn.textContent;
+        btn.textContent = "Copiado";
+        setTimeout(() => { btn.textContent = prev; }, 1400);
+      }
+    };
+  }
+  filter() {
+    const q = this.query || "";
+    const tag = this.tag && this.tag !== "all" ? this.tag : null;
+    let shown = 0;
+    document.querySelectorAll("[data-post-card]").forEach((card) => {
+      const hay = (card.dataset.terms + " " + card.textContent).toLowerCase();
+      const ok = (!q || hay.includes(q)) && (!tag || card.dataset.tags.split(" ").includes(tag));
+      card.style.display = ok ? "grid" : "none";
+      if (ok) shown++;
+    });
+    const empty = document.querySelector("[data-empty]");
+    if (empty) empty.style.display = shown ? "none" : "block";
+  }
+}
+
+</script>
+</body>
+</html>
