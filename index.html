@@ -1,10 +1,255 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Santi Andrade / Blog</title>
+<link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    Work in progress..
+
+<div class="page" data-r="page">
+
+<header class="site-header" data-r="head">
+  <div class="brand">
+    <a href="#" class="brand-link" data-go="home">SANTI ANDRADE / BLOG</a>
+    <span class="brand-tagline"><span data-l="es">MIS NOTAS Y REFLEXIONES SOBRE IA</span><span data-l="en">MY NOTES AND REFLECTIONS ON AI</span></span>
+  </div>
+  <nav class="site-nav">
+    <a href="#" class="nav-link" data-nav="home" data-go="home"><span data-l="es">Posts</span><span data-l="en">Posts</span></a>
+    <a href="#" class="nav-link" data-nav="about" data-go="about"><span data-l="es">Sobre mí</span><span data-l="en">About</span></a>
+    <a href="https://github.com/santiandrade" class="nav-link" target="_blank" rel="noopener">GitHub</a>
+    <span class="nav-sep"></span>
+    <div class="lang-switch">
+      <button type="button" class="lang-btn" data-set-lang="es">ES</button>
+      <span class="lang-switch-sep">·</span>
+      <button type="button" class="lang-btn" data-set-lang="en">EN</button>
+    </div>
+    <button type="button" class="theme-toggle" data-theme-toggle aria-label="Cambiar tema" title="Claro / Oscuro">
+      <svg data-icon="sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>
+      <svg data-icon="moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>
+    </button>
+  </nav>
+</header>
+
+<!-- ─────────── HOME ─────────── -->
+<main data-screen="home">
+  <section class="hero" data-r="cols">
+    <h1 class="hero-title">
+      <span data-l="es">Delega la ejecución a la IA, nunca tu criterio.</span>
+      <span data-l="en">AI doesn't save me time. It forces me to think better.</span>
+    </h1>
+    <div class="hero-copy">
+      <p class="hero-lede">
+        <span data-l="es">Escribo sobre lo que construyo con IA y reflexiono sobre ello. Casos de uso, herramientas, desarrollo, pensamientos...</span><span data-l="en">I write about what I build with AI and reflect on it. Use cases, tools, development, thoughts...</span>
+      </p>
+      <p class="hero-meta" data-post-meta hidden>
+        <span data-l="es">3 posts · actualizado julio 2026</span><span data-l="en">3 posts · updated July 2026</span>
+      </p>
+    </div>
+  </section>
+
+  <section class="search-bar" data-r="search">
+    <input type="search" data-search class="search-input" placeholder="Buscar…">
+  </section>
+
+  <div class="post-list" data-postlist>
+    <p class="empty-state" data-empty><span data-l="es">Nada por aquí todavía.</span><span data-l="en">Nothing here yet.</span></p>
+  </div>
+
+  <section class="quote-banner" data-r="banner">
+    <div class="quote-banner-body">
+      <p class="quote-text"><span data-l="es">«La inteligencia artificial es una herramienta poderosa que puede utilizarse para el bien o para el mal. Es importante que utilicemos esta tecnología de manera responsable y ética.»</span><span data-l="en">"Artificial intelligence is a powerful tool that can be used for good or for ill. It is important that we use this technology responsibly and ethically."</span></p>
+      <span class="quote-author">Alan Turing</span>
+    </div>
+  </section>
+</main>
+
+<!-- ─────────── POST ─────────── -->
+<main data-screen="post">
+  <div class="post-back">
+    <a href="#" class="back-link" data-go="home"><span data-l="es">← Todos los posts</span><span data-l="en">← All posts</span></a>
+  </div>
+
+  <header class="post-header">
+    <p class="post-kicker"><span data-l="es">Post 00 · Ejemplo</span><span data-l="en">Post 00 · Example</span></p>
+    <h1 class="post-title"><span data-l="es">Título de ejemplo para un post</span><span data-l="en">Example title for a post</span></h1>
+    <div class="post-meta">
+      <span>2026.01.01</span>
+      <span><span data-l="es">0 min de lectura</span><span data-l="en">0 min read</span></span>
+      <span><span data-l="es">Etiqueta de ejemplo</span><span data-l="en">Example tag</span></span>
+    </div>
+  </header>
+
+  <div class="post-doc" data-r="doc">
+    <aside class="post-toc">
+      <span class="post-toc-label"><span data-l="es">Contenido</span><span data-l="en">Contents</span></span>
+      <a href="#s1">01 <span data-l="es">Introducción</span><span data-l="en">Introduction</span></a>
+      <a href="#s2">02 <span data-l="es">Comparativa</span><span data-l="en">Comparison</span></a>
+      <a href="#s3">03 <span data-l="es">Ejemplo de código</span><span data-l="en">Code example</span></a>
+      <a href="#s4">04 <span data-l="es">Notas finales</span><span data-l="en">Closing notes</span></a>
+    </aside>
+
+    <article class="post-body">
+      <p class="post-intro"><span data-l="es">Este es un párrafo introductorio de ejemplo. Aquí iría el gancho del artículo, explicando de qué trata el post y por qué merece la pena leerlo.</span><span data-l="en">This is an example intro paragraph. Here would go the article's hook, explaining what the post is about and why it's worth reading.</span></p>
+
+      <h2 id="s1">01 · <span data-l="es">Introducción</span><span data-l="en">Introduction</span></h2>
+      <p><span data-l="es">Texto de ejemplo para el primer bloque de contenido. Sirve para comprobar el ancho de línea, el interlineado y el contraste del cuerpo del artículo.</span><span data-l="en">Example text for the first content block. Used to check line width, line height and body text contrast.</span></p>
+      <p><span data-l="es">Segundo párrafo de ejemplo, para comprobar el espaciado vertical entre bloques de texto consecutivos.</span><span data-l="en">Second example paragraph, to check vertical spacing between consecutive text blocks.</span></p>
+
+      <figure class="post-figure">
+        <div class="post-figure-placeholder">
+          <span><span data-l="es">imagen de ejemplo</span><span data-l="en">example image</span></span>
+        </div>
+        <figcaption><span data-l="es">Fig. 1 — Pie de foto de ejemplo.</span><span data-l="en">Fig. 1 — Example caption.</span></figcaption>
+      </figure>
+
+      <h2 id="s2">02 · <span data-l="es">Comparativa</span><span data-l="en">Comparison</span></h2>
+      <p><span data-l="es">Texto de ejemplo antes de una comparativa a tres columnas.</span><span data-l="en">Example text before a three-column comparison.</span></p>
+
+      <div class="post-three" data-r="three">
+        <div class="post-three-col">
+          <span class="post-three-kicker">01</span>
+          <strong><span data-l="es">Opción A</span><span data-l="en">Option A</span></strong>
+          <p><span data-l="es">Descripción de ejemplo de la primera opción.</span><span data-l="en">Example description of the first option.</span></p>
+        </div>
+        <div class="post-three-col">
+          <span class="post-three-kicker">02</span>
+          <strong><span data-l="es">Opción B</span><span data-l="en">Option B</span></strong>
+          <p><span data-l="es">Descripción de ejemplo de la segunda opción.</span><span data-l="en">Example description of the second option.</span></p>
+        </div>
+        <div class="post-three-col">
+          <span class="post-three-kicker">03</span>
+          <strong><span data-l="es">Opción C</span><span data-l="en">Option C</span></strong>
+          <p><span data-l="es">Descripción de ejemplo de la tercera opción.</span><span data-l="en">Example description of the third option.</span></p>
+        </div>
+      </div>
+
+      <h2 id="s3">03 · <span data-l="es">Ejemplo de código</span><span data-l="en">Code example</span></h2>
+      <p><span data-l="es">Bloque de código de ejemplo con botón para copiar su contenido:</span><span data-l="en">Example code block with a button to copy its content:</span></p>
+
+      <div class="code-block">
+        <div class="code-block-header">
+          <span class="code-block-filename">ejemplo.md</span>
+          <button type="button" class="code-copy-btn" data-copy-btn>Copy</button>
+        </div>
+        <pre class="code-block-pre">título: Ejemplo
+fecha: 2026-01-01
+tags: [ejemplo, placeholder]
+
+Este es un bloque de código de ejemplo.
+Sirve para probar el botón de copiar.</pre>
+      </div>
+
+      <p><span data-l="es">Tabla de ejemplo para comprobar el estilo de filas y cabecera:</span><span data-l="en">Example table to check row and header styling:</span></p>
+
+      <table class="post-table">
+        <thead>
+          <tr>
+            <th><span data-l="es">Columna</span><span data-l="en">Column</span></th>
+            <th><span data-l="es">Valor</span><span data-l="en">Value</span></th>
+            <th><span data-l="es">Nota</span><span data-l="en">Note</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span data-l="es">Fila 1</span><span data-l="en">Row 1</span></td>
+            <td>—</td>
+            <td><span data-l="es">Ejemplo</span><span data-l="en">Example</span></td>
+          </tr>
+          <tr>
+            <td><span data-l="es">Fila 2</span><span data-l="en">Row 2</span></td>
+            <td>—</td>
+            <td><span data-l="es">Ejemplo</span><span data-l="en">Example</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2 id="s4">04 · <span data-l="es">Notas finales</span><span data-l="en">Closing notes</span></h2>
+      <div class="post-callout">
+        <span class="post-callout-label"><span data-l="es">Nota</span><span data-l="en">Note</span></span>
+        <p><span data-l="es">Texto de ejemplo para un bloque de nota o cierre destacado del artículo.</span><span data-l="en">Example text for a highlighted note or closing block of the article.</span></p>
+      </div>
+
+      <nav class="post-pair" data-r="pair">
+        <a href="#" class="post-pair-link" data-go="home">
+          <span class="post-pair-kicker"><span data-l="es">Anterior</span><span data-l="en">Previous</span></span>
+          <strong><span data-l="es">Post de ejemplo anterior</span><span data-l="en">Previous example post</span></strong>
+        </a>
+        <a href="#" class="post-pair-link post-pair-link--next" data-go="home">
+          <span class="post-pair-kicker"><span data-l="es">Siguiente</span><span data-l="en">Next</span></span>
+          <strong><span data-l="es">Post de ejemplo siguiente</span><span data-l="en">Next example post</span></strong>
+        </a>
+      </nav>
+    </article>
+  </div>
+</main>
+
+<!-- ─────────── ABOUT ─────────── -->
+<main data-screen="about">
+  <section class="about-hero" data-r="cols">
+    <div class="about-hero-text">
+      <h1><span data-l="es">Título de ejemplo para la biografía.</span><span data-l="en">Example title for the bio.</span></h1>
+      <p class="about-lede"><span data-l="es">Texto de ejemplo para el primer párrafo de la biografía. Aquí iría una presentación breve de quién soy y a qué me dedico.</span><span data-l="en">Example text for the first bio paragraph. Here would go a short introduction of who I am and what I do.</span></p>
+      <p class="about-muted"><span data-l="es">Segundo párrafo de ejemplo, con contexto adicional sobre el propósito de este blog.</span><span data-l="en">Second example paragraph, with additional context about the purpose of this blog.</span></p>
+    </div>
+    <div class="about-portrait">
+      <img class="about-portrait-img" src="assets/Santi_ImgProfile.png" alt="Santi Andrade">
+    </div>
+  </section>
+
+  <section class="about-section" data-r="cols">
+    <h2 class="about-section-label"><span data-l="es">Con qué trabajo</span><span data-l="en">What I work with</span></h2>
+    <div class="tool-grid">
+      <div class="tool-card">
+        <strong>Claude Code</strong>
+        <span><span data-l="es">Mi agente principal de desarrollo.</span><span data-l="en">My main development agent.</span></span>
+      </div>
+      <div class="tool-card">
+        <strong>Codex</strong>
+        <span><span data-l="es">Mi agente de apoyo para code reviews y segundas opiniones.</span><span data-l="en">Support agent for code review and second opinions.</span></span>
+      </div>
+      <div class="tool-card">
+        <strong>Hermes</strong>
+        <span><span data-l="es">Mi asistente personal para el día a día.</span><span data-l="en">My personal day-to-day assistant.</span></span>
+      </div>
+      <div class="tool-card">
+        <strong>Obsidian</strong>
+        <span><span data-l="es">Mi segundo cerebro usando el&nbsp;método Karpathy.</span><span data-l="en">My second brain, using the&nbsp;Karpathy method.</span></span>
+      </div>
+      <div class="tool-card">
+        <strong>Unity</strong>
+        <span><span data-l="es">Game Engine para el desarrollo de videojuegos.</span><span data-l="en">Game engine for building videogames.</span></span>
+      </div>
+      <div class="tool-card">
+        <strong>JetBrains Rider</strong>
+        <span><span data-l="es">Mi IDE de desarrollo principal.</span><span data-l="en">My main development IDE.</span></span>
+      </div>
+      <div class="tool-card">
+        <strong>Notion</strong>
+        <span><span data-l="es">Lugar donde guardo toda mi documentación interna.</span><span data-l="en">Where I keep all my internal documentation.</span></span>
+      </div>
+      <div class="tool-card">
+        <strong>Slack</strong>
+        <span><span data-l="es">Canal de comunicación con equipos.</span><span data-l="en">Team communication channel.</span></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="about-section" data-r="cols">
+    <h2 class="about-section-label"><span data-l="es">Escríbeme</span><span data-l="en">Get in touch</span></h2>
+    <div class="contact-links">
+      <a href="mailto:santiandrade@hotmail.com">santiandrade@hotmail.com</a>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <span>© 2026 Santi Andrade</span>
+</footer>
+
+</div>
+
+<script src="js/main.js" defer></script>
 </body>
 </html>
