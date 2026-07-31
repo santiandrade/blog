@@ -4,11 +4,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Estado del proyecto
 
-Este repositorio es el blog personal de Santi Andrade, pensado para publicarse en GitHub Pages (`santiandrade.github.io/blog`). Está en una fase muy temprana: `index.html` es todavía un placeholder ("Work in progress"). No hay build, ni tests, ni linter configurados — no existen `package.json` ni pipeline alguno todavía. El repositorio aún no tiene ningún commit (rama actual: `master`; la rama principal prevista es `main`).
+Este repositorio es el blog personal de Santi Andrade, publicado como sitio estático en GitHub Pages (`santiandrade.github.io/blog`). La base visual y el primer post real están implementados en el repositorio: no hay build, tests ni linter configurados — tampoco `package.json` ni pipeline. El contenido se mantiene directamente en HTML/CSS/JS estándar.
 
 ## Estructura
 
-- `index.html` — punto de entrada real del sitio (actualmente placeholder).
+- `index.html` — punto de entrada real del sitio; contiene la portada, el primer artículo y la pantalla "Sobre mí".
 - `.gitignore` — solo ignora `/.idea/` (el proyecto se abre desde Rider/JetBrains).
 - `references/Blog Design/` — material de referencia de diseño, no código de producción:
   - `Blog Santi Andrade.dc.html` — el mockup funcional de la maqueta objetivo del blog. Ver "La maqueta de referencia" más abajo.
@@ -31,8 +31,8 @@ Este repositorio es el blog personal de Santi Andrade, pensado para publicarse e
 
 **Pantallas:**
 
-- `home` — hero a dos columnas, buscador + barra de tags, lista de `article[data-post-card]` y un banner de acento al pie. El filtrado es JS vanilla: cada card lleva `data-tags` (lista separada por espacios) y `data-terms` (sinónimos de búsqueda en ambos idiomas); se cruza texto de búsqueda con tag activo y se muestra/oculta, con un `[data-empty]` para el estado vacío.
-- `post` — cabecera del artículo + grid `data-r="doc"` con un `<aside>` sticky de índice y el cuerpo del artículo (bloques de código con botón de copiar, tablas, comparativa de tres columnas `data-r="three"`, navegación anterior/siguiente `data-r="pair"`).
+- `home` — hero a dos columnas, buscador, lista de `article[data-post-card]` y un banner de acento al pie. El filtrado es JS vanilla: cada card lleva `data-terms` (sinónimos de búsqueda en ambos idiomas); se cruza con el texto de búsqueda y se muestra/oculta, con un `[data-empty]` para el estado sin coincidencias.
+- `post` — artículo real + grid `data-r="doc"` con un `<aside>` sticky de índice y el cuerpo del artículo (tablas, comparativas, callouts, listas y navegación). Actualmente hay un solo post; antes de añadir el segundo hay que introducir una forma de seleccionar artículos sin duplicar pantallas completas.
 - `about` — biografía a dos columnas y secciones etiquetadas con un lateral de 200px.
 
 **Importante:** el archivo está escrito con la sintaxis propia de una herramienta de diseño visual (`{{ }}`, `sc-if`, `sc-for`, `onClick="{{ goHome }}"`, `style-hover`, `style-focus`, `<helmet>`, `<x-dc>`, el bloque `<script type="text/x-dc">` con una `class Component extends DCLogic`), no HTML/JS estándar. Además todo el estilo va inline en atributos `style`. No se puede ejecutar tal cual fuera de su herramienta de origen.
