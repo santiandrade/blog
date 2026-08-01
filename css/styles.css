@@ -138,11 +138,25 @@ html[data-lang="en"] .lang-btn[data-set-lang="en"]{color:var(--accent)}
 .hero-lede{color:var(--muted);text-wrap:pretty}
 .hero-meta{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.06em;color:var(--muted)}
 
-.search-bar{padding:18px 0 26px}
+.search-bar{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:center;padding:18px 0 26px}
 .search-input{width:100%;background:transparent;border:0;border-bottom:2px solid var(--hair);color:var(--ink);font-family:"IBM Plex Mono",monospace;font-size:13px;letter-spacing:.04em;padding:8px 0;outline:none}
 .search-input:focus{border-bottom-color:var(--accent)}
 
+.tag-bar{display:flex;flex-wrap:wrap;gap:8px}
+.tag-btn{background:none;color:var(--ink);border:2px solid var(--hair);padding:5px 11px;font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer}
+.tag-btn:hover{border-color:var(--accent);color:var(--accent)}
+.tag-btn.is-active{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+
 .post-list{display:flex;flex-direction:column}
+.post-card{display:grid;grid-template-columns:170px minmax(0,1fr);gap:40px;padding:34px 0;border-top:2px solid var(--line);border-bottom:2px solid var(--line)}
+.post-card-meta{display:flex;flex-direction:column;gap:7px;font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.post-card-content{display:flex;flex-direction:column;gap:14px}
+.post-card-content h2{font-size:clamp(27px,3.4vw,42px);line-height:1.12}
+.post-card-content h2 a{color:var(--ink);border:0}
+.post-card-content h2 a:hover{color:var(--accent)}
+.post-card-content>p{max-width:64ch;color:var(--muted)}
+.post-card-tags{display:flex;flex-wrap:wrap;gap:8px}
+.post-card-tags>span{border:1px solid var(--hair);padding:4px 8px;font-family:"IBM Plex Mono",monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
 .empty-state{padding:40px 0;border-bottom:2px solid var(--line);font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--muted)}
 
 .quote-banner{display:grid;background:var(--accent);color:#fff;padding:64px 40px;margin-top:56px}
@@ -163,13 +177,16 @@ html[data-lang="en"] .lang-btn[data-set-lang="en"]{color:var(--accent)}
 .post-doc{display:grid;grid-template-columns:200px minmax(0,1fr);gap:56px;padding-top:44px}
 .post-toc{position:sticky;top:32px;align-self:start;display:flex;flex-direction:column;gap:10px;font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.08em}
 .post-toc-label{text-transform:uppercase;color:var(--muted);padding-bottom:10px;border-bottom:2px solid var(--line)}
-.post-toc a{color:var(--ink);border:0}
+.post-toc a{color:var(--ink);border:0;transition:color .15s ease}
 .post-toc a:hover{color:var(--accent)}
+.post-toc a.is-active{color:var(--accent)}
 
 .post-body{max-width:70ch;display:flex;flex-direction:column;gap:30px}
 .post-intro{font-size:23px;line-height:1.5;text-wrap:pretty}
 .post-body p{text-wrap:pretty}
 .post-body h2{font-size:30px;padding-top:14px;border-top:2px solid var(--line)}
+.post-bullets{margin:0;padding-left:1.35em;display:flex;flex-direction:column;gap:14px}
+.post-bullets li::marker{color:var(--accent)}
 
 .post-figure{margin:0;display:flex;flex-direction:column;gap:10px}
 .post-figure-placeholder{aspect-ratio:16/9;background-image:repeating-linear-gradient(135deg,var(--hair) 0 1px,transparent 1px 9px);border:2px solid var(--line);display:flex;align-items:flex-end;padding:16px}
@@ -201,6 +218,7 @@ html[data-lang="en"] .lang-btn[data-set-lang="en"]{color:var(--accent)}
 .post-pair-link{display:flex;flex-direction:column;gap:6px;color:var(--ink);border:0}
 .post-pair-link:hover{color:var(--accent)}
 .post-pair-link--next{text-align:right}
+.post-pair--single{grid-template-columns:minmax(0,1fr)}
 .post-pair-kicker{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
 .post-pair-link strong{font-size:20px;font-weight:800;letter-spacing:-.01em}
 
