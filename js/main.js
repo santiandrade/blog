@@ -121,7 +121,7 @@
 
   function initState() {
     root.dataset.theme = localStorage.getItem("sa-theme") || "light";
-    root.dataset.lang = localStorage.getItem("sa-lang") || "es";
+    root.dataset.lang = localStorage.getItem("sa-lang") === "en" ? "en" : "es";
     root.lang = root.dataset.lang;
     syncPlaceholder(root.dataset.lang);
     renderTags();
