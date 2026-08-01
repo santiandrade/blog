@@ -9,7 +9,7 @@ Este repositorio es el blog personal de Santi Andrade, publicado como sitio est�
 ## Estructura
 
 - `index.html` — punto de entrada real del sitio; contiene el esqueleto de las tres pantallas (home, post, about). Las tres están vacías de contenido: ese contenido lo inyecta `js/main.js` en tiempo de carga a partir de los ficheros de `js/data/` (ver "Arquitectura de datos: tags, posts y about").
-- `js/main.js` — toda la lógica de la SPA: routing por `data-route` y History API, tema, idioma, buscador/filtro por tag, carga bajo demanda del contenido de posts, botón de compartir con Web Share API y fallback al portapapeles, y el renderizado de tags/posts/about a partir de `js/data/`.
+- `js/main.js` — toda la lógica de la SPA: routing por `data-route` y History API, tema, idioma, buscador/filtro por tag, carga bajo demanda del contenido de posts, botón de compartir con Web Share API y fallback al portapapeles, controles para copiar las URLs RSS con feedback accesible, y el renderizado de tags/posts/about a partir de `js/data/`.
 - `js/data/tags.js` — catálogo de tags (`window.SITE_TAGS`).
 - `js/data/about.js` — contenido de la pantalla "Sobre mí" (`window.SITE_ABOUT`): bio, portrait, herramientas, contacto.
 - `js/data/posts-meta.js` — metadata de todos los posts (`window.SITE_POSTS_META`): fecha, tags, título, extracto, TOC. Debe mantenerse ligero — nunca meter aquí el HTML del artículo.

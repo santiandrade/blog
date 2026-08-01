@@ -4,6 +4,7 @@
   var siteOrigin = (document.querySelector('meta[name="site-origin"]') || {}).content || window.location.origin;
   var currentPostId = null;
   var navigationToken = 0;
+  var rssCopyToken = 0;
 
   if (siteBasePath.charAt(0) !== "/") siteBasePath = "/" + siteBasePath;
   if (siteBasePath.slice(-1) !== "/") siteBasePath += "/";
@@ -121,6 +122,7 @@
   function initState() {
     root.dataset.theme = localStorage.getItem("sa-theme") || "light";
     root.dataset.lang = localStorage.getItem("sa-lang") || "es";
+    root.lang = root.dataset.lang;
     syncPlaceholder(root.dataset.lang);
     renderTags();
     renderPostList();
@@ -174,7 +176,11 @@
   function setLang(lang) {
     if (root.dataset.lang === lang) return;
     root.dataset.lang = lang;
+    root.lang = lang;
+    rssCopyToken++;
     syncPlaceholder(lang);
+    var rssCopyStatus = document.querySelector("[data-rss-copy-status]");
+    if (rssCopyStatus) rssCopyStatus.textContent = "";
     localStorage.setItem("sa-lang", lang);
     updateDocumentMetadata(root.dataset.route, currentPostId);
   }
@@ -457,6 +463,57 @@
     }
   }
 
+  function copyRssUrl(btn) {
+    var url = btn.dataset.copyRss;
+    var status = document.querySelector("[data-rss-copy-status]");
+    if (!url || !status) return;
+    var copyToken = ++rssCopyToken;
+    status.textContent = "";
+
+    function report(copied) {
+      if (copyToken !== rssCopyToken) return;
+      var feedLang = /feed-en\.xml$/.test(url) ? "EN" : "ES";
+      if (copied) {
+        status.textContent = root.dataset.lang === "en"
+          ? (feedLang === "EN" ? "English RSS URL copied." : "Spanish RSS URL copied.")
+          : "URL de RSS " + feedLang + " copiada.";
+      } else {
+        status.textContent = root.dataset.lang === "en"
+          ? "Could not copy the RSS URL. Open the feed and copy its address."
+          : "No se pudo copiar la URL. Abre el feed y copia su dirección.";
+      }
+    }
+
+    function legacyCopy() {
+      if (copyToken !== rssCopyToken) return;
+      var previousFocus = document.activeElement;
+      var input = document.createElement("textarea");
+      input.value = url;
+      input.setAttribute("readonly", "");
+      input.style.position = "fixed";
+      input.style.opacity = "0";
+      document.body.appendChild(input);
+      input.select();
+      var copied = false;
+      try { copied = document.execCommand("copy"); } catch (error) { copied = false; }
+      document.body.removeChild(input);
+      if (previousFocus && typeof previousFocus.focus === "function") previousFocus.focus();
+      report(copied);
+    }
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      try {
+        Promise.resolve(navigator.clipboard.writeText(url))
+          .then(function () { report(true); })
+          .catch(legacyCopy);
+      } catch (error) {
+        legacyCopy();
+      }
+    } else {
+      legacyCopy();
+    }
+  }
+
   function shareCurrentPost(btn) {
     var post = (window.SITE_POSTS_META || []).find(function (item) { return item.id === currentPostId; });
     if (!post) return;
@@ -504,6 +561,11 @@
     var shareBtn = e.target.closest("[data-share-post]");
     if (shareBtn) {
       shareCurrentPost(shareBtn);
+      return;
+    }
+    var rssCopyBtn = e.target.closest("[data-copy-rss]");
+    if (rssCopyBtn) {
+      copyRssUrl(rssCopyBtn);
       return;
     }
     var langBtn = e.target.closest("[data-set-lang]");

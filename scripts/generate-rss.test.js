@@ -234,6 +234,12 @@ test("every production HTML shell exposes both feeds", () => {
     const html = fs.readFileSync(path.join(root, shell), "utf8");
     assert.equal((html.match(/type="application\/rss\+xml"/g) || []).length, 2, shell);
     assert.equal((html.match(/class="rss-link"/g) || []).length, 2, shell);
+    assert.equal((html.match(/data-copy-rss=/g) || []).length, 2, shell);
+    assert.match(html, /data-copy-rss="https:\/\/santiandrade\.github\.io\/blog\/feed\.xml"/);
+    assert.match(html, /data-copy-rss="https:\/\/santiandrade\.github\.io\/blog\/feed-en\.xml"/);
+    assert.match(html, /data-rss-copy-status[^>]*role="status"[^>]*aria-live="polite"/);
+    assert.match(html, /Copia la URL y añádela a tu lector RSS\./);
+    assert.match(html, /Copy the URL and add it to your RSS reader\./);
     assert.match(html, /href="https:\/\/santiandrade\.github\.io\/blog\/feed\.xml"/);
     assert.match(html, /href="https:\/\/santiandrade\.github\.io\/blog\/feed-en\.xml"/);
     assert.match(html, /Suscribirse:/);
