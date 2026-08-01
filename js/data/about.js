@@ -6,16 +6,16 @@ window.SITE_ABOUT = {
   },
   hero: {
     title: {
-      es: "Título de ejemplo para la biografía.",
-      en: "Example title for the bio."
+      es: "Ingeniero de software, desarrollador de videojuegos y aprendiz permanente de IA.",
+      en: "Software engineer, game developer and lifelong AI learner."
     },
     lede: {
-      es: "Texto de ejemplo para el primer párrafo de la biografía. Aquí iría una presentación breve de quién soy y a qué me dedico.",
-      en: "Example text for the first bio paragraph. Here would go a short introduction of who I am and what I do."
+      es: "Soy Santi Andrade, ingeniero de software con más de 20 años de experiencia y más de una década creando videojuegos con Unity y C#. Me gusta moverme entre la arquitectura, el gameplay y la UI/UX: justo donde una buena idea tiene que convertirse en algo que funcione de verdad.",
+      en: "I'm Santi Andrade, a software engineer with over 20 years of experience and more than a decade building games with Unity and C#. I enjoy working across architecture, gameplay and UI/UX: right where a good idea has to become something that actually works."
     },
     muted: {
-      es: "Segundo párrafo de ejemplo, con contexto adicional sobre el propósito de este blog.",
-      en: "Second example paragraph, with additional context about the purpose of this blog."
+      es: "En este blog documento mi exploración práctica de la IA y los agentes: proyectos, herramientas, aciertos y tropiezos, sin vender humo. Escribo para entender mejor lo que construyo y compartirlo de forma útil con quienes también estén experimentando.",
+      en: "In this blog I document my hands-on exploration of AI and agents: projects, tools, successes and missteps, without the hype. I write to better understand what I build and to share it with others who are experimenting too."
     }
   },
   toolsLabel: { es: "Con qué trabajo", en: "What I work with" },
