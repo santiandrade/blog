@@ -16,6 +16,8 @@
     renderAbout();
     var posts = window.SITE_POSTS_META || [];
     if (posts[0]) renderPost(posts[0].id);
+    var yearEl = document.querySelector("[data-year]");
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
   }
 
   function goTo(route) {
@@ -140,6 +142,49 @@
           "</a>" +
         "</nav>";
     }
+
+    setupTocObserver();
+  }
+
+  var tocObserver = null;
+
+  function setupTocObserver() {
+    if (tocObserver) {
+      tocObserver.disconnect();
+      tocObserver = null;
+    }
+    var toc = document.querySelector("[data-post-toc]");
+    var body = document.querySelector("[data-post-body]");
+    if (!toc || !body) return;
+    var links = toc.querySelectorAll("a[href^='#']");
+    if (!links.length) return;
+
+    var linkByHash = {};
+    links.forEach(function (link) {
+      linkByHash[link.getAttribute("href").slice(1)] = link;
+    });
+
+    function setActive(id) {
+      links.forEach(function (link) {
+        link.classList.toggle("is-active", link === linkByHash[id]);
+      });
+    }
+
+    var headings = Array.prototype.slice.call(body.querySelectorAll("h2[id]"));
+    if (!headings.length) return;
+
+    tocObserver = new IntersectionObserver(
+      function (entries) {
+        var visible = entries.filter(function (entry) { return entry.isIntersecting; });
+        if (visible.length) {
+          visible.sort(function (a, b) { return a.boundingClientRect.top - b.boundingClientRect.top; });
+          setActive(visible[0].target.id);
+        }
+      },
+      { rootMargin: "0px 0px -70% 0px", threshold: 0 }
+    );
+    headings.forEach(function (heading) { tocObserver.observe(heading); });
+    setActive(headings[0].id);
   }
 
   function renderAbout() {
@@ -231,6 +276,15 @@
   }
 
   document.addEventListener("click", function (e) {
+    var tocLink = e.target.closest("[data-post-toc] a[href^='#']");
+    if (tocLink) {
+      var target = document.getElementById(tocLink.getAttribute("href").slice(1));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+      return;
+    }
     var goEl = e.target.closest("[data-go]");
     if (goEl) {
       e.preventDefault();

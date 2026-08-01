@@ -177,8 +177,9 @@ html[data-lang="en"] .lang-btn[data-set-lang="en"]{color:var(--accent)}
 .post-doc{display:grid;grid-template-columns:200px minmax(0,1fr);gap:56px;padding-top:44px}
 .post-toc{position:sticky;top:32px;align-self:start;display:flex;flex-direction:column;gap:10px;font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.08em}
 .post-toc-label{text-transform:uppercase;color:var(--muted);padding-bottom:10px;border-bottom:2px solid var(--line)}
-.post-toc a{color:var(--ink);border:0}
+.post-toc a{color:var(--ink);border:0;transition:color .15s ease}
 .post-toc a:hover{color:var(--accent)}
+.post-toc a.is-active{color:var(--accent)}
 
 .post-body{max-width:70ch;display:flex;flex-direction:column;gap:30px}
 .post-intro{font-size:23px;line-height:1.5;text-wrap:pretty}
