@@ -108,6 +108,13 @@ html[data-route="about"] [data-screen="about"]{display:block}
 @media (max-width:520px){
   [data-r="head"] nav{font-size:13px!important;gap:12px 14px!important}
   [data-r="head"] nav .nav-sep{display:none}
+  .post-table--stacked{display:block!important;overflow:visible!important;white-space:normal!important}
+  .post-table--stacked thead{display:none}
+  .post-table--stacked tbody,.post-table--stacked tr,.post-table--stacked td{display:block}
+  .post-table--stacked tr{padding:10px 0;border-bottom:2px solid var(--line)}
+  .post-table--stacked td{position:relative;min-height:30px;padding:4px 0 4px 42%!important;border:0!important}
+  .post-table--stacked td::before{content:attr(data-label-es);position:absolute;left:0;width:38%;font-family:"IBM Plex Mono",monospace;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  html[data-lang="en"] .post-table--stacked td::before{content:attr(data-label-en)}
 }
 
 /* ---------- Layout general ---------- */

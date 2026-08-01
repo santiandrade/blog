@@ -3,5 +3,7 @@
 // array `tags` del post correspondiente (ver js/data/posts.js).
 window.SITE_TAGS = [
   { id: "hermes", es: "Hermes", en: "Hermes" },
-  { id: "agentes", es: "Agentes", en: "Agents" }
+  { id: "agentes", es: "Agentes", en: "Agents" },
+  { id: "obsidian", es: "Obsidian", en: "Obsidian" },
+  { id: "conocimiento", es: "Conocimiento", en: "Knowledge" }
 ];
