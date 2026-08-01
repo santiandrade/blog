@@ -23,6 +23,36 @@
 //   toc       [{ id, es, en }] — índice lateral del artículo
 window.SITE_POSTS_META = [
   {
+    id: "segundo-cerebro-obsidian-hermes",
+    number: "02",
+    date: "2026.08.01",
+    readMin: 8,
+    tags: ["hermes", "obsidian"],
+    terms:
+      "segundo cerebro second brain obsidian hermes tars conocimiento knowledge llm wiki karpathy notas notes markdown memoria memory rag fuentes sources esquema schema casos de uso use cases",
+    title: {
+      es: "Cómo monté un segundo cerebro con Obsidian y Hermes",
+      en: "How I built a second brain with Obsidian and Hermes"
+    },
+    excerpt: {
+      es: "Por qué una colección de notas no basta y cómo un agente puede convertirla en conocimiento vivo, trazable y útil.",
+      en: "Why a collection of notes is not enough, and how an agent can turn it into living, traceable and useful knowledge."
+    },
+    kicker: {
+      es: "Post 02 · Segundo cerebro",
+      en: "Post 02 · Second brain"
+    },
+    toc: [
+      { id: "s1", es: "El problema", en: "The problem" },
+      { id: "s2", es: "El método LLM Wiki", en: "The LLM Wiki method" },
+      { id: "s3", es: "Obsidian y Hermes", en: "Obsidian and Hermes" },
+      { id: "s4", es: "Flujo de conocimiento", en: "Knowledge flow" },
+      { id: "s5", es: "Utilidad y casos de uso", en: "Value and use cases" },
+      { id: "s6", es: "Confianza y control", en: "Trust and control" },
+      { id: "s7", es: "Cómo empezar", en: "How to start" }
+    ]
+  },
+  {
     id: "hermes-agent",
     number: "01",
     date: "2026.08.01",
