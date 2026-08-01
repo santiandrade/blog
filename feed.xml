@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Santi Andrade / Blog</title>
+    <link>https://santiandrade.github.io/blog/</link>
+    <description>Notas y reflexiones sobre inteligencia artificial de Santi Andrade.</description>
+    <language>es-ES</language>
+    <atom:link href="https://santiandrade.github.io/blog/feed.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>Cómo monté un segundo cerebro con Obsidian y Hermes</title>
+      <description>Por qué una colección de notas no basta y cómo un agente puede convertirla en conocimiento vivo, trazable y útil.</description>
+      <pubDate>Sat, 01 Aug 2026 00:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://santiandrade.github.io/blog/segundo-cerebro-obsidian-hermes/</guid>
+      <link>https://santiandrade.github.io/blog/segundo-cerebro-obsidian-hermes/?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=blog_feed</link>
+    </item>
+    <item>
+      <title>De chatbot a compañero: por qué monté mi propio agente de IA con Hermes</title>
+      <description>Qué ocurre cuando la IA deja de vivir en una pestaña y empieza a recordar, usar herramientas y ayudarte en el día a día.</description>
+      <pubDate>Sat, 01 Aug 2026 00:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://santiandrade.github.io/blog/hermes-agent/</guid>
+      <link>https://santiandrade.github.io/blog/hermes-agent/?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=blog_feed</link>
+    </item>
+  </channel>
+</rss>

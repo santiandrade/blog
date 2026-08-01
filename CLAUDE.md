@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Estado del proyecto
 
-Este repositorio es el blog personal de Santi Andrade, publicado como sitio estático en GitHub Pages (`santiandrade.github.io/blog`). La base visual y el primer post real están implementados en el repositorio: no hay build, tests ni linter configurados — tampoco `package.json` ni pipeline. El contenido se mantiene directamente en HTML/CSS/JS estándar.
+Este repositorio es el blog personal de Santi Andrade, publicado como sitio estático en GitHub Pages (`santiandrade.github.io/blog`). No hay build, gestor de dependencias ni linter configurados — tampoco `package.json` ni pipeline. El contenido se mantiene directamente en HTML/CSS/JS estándar; el generador RSS sí cuenta con pruebas basadas en `node:test`.
 
 ## Estructura
 
@@ -15,6 +15,9 @@ Este repositorio es el blog personal de Santi Andrade, publicado como sitio est�
 - `js/data/posts-meta.js` — metadata de todos los posts (`window.SITE_POSTS_META`): fecha, tags, título, extracto, TOC. Debe mantenerse ligero — nunca meter aquí el HTML del artículo.
 - `js/data/posts/<id>.js` — un fichero por post con su contenido (`window.SITE_POST_BODIES["<id>"]`): párrafo introductorio y cuerpo completo en HTML.
 - `<id>/index.html` — entrada estática de GitHub Pages para la URL permanente de cada post. Reutiliza la SPA mediante `<base href="../">` y contiene los metadatos sociales propios del artículo.
+- `feed.xml` / `feed-en.xml` — feeds RSS 2.0 resumidos en español e inglés, generados desde `js/data/posts-meta.js` y servidos directamente por GitHub Pages.
+- `scripts/generate-rss.js` — generador RSS determinista sin dependencias; `--check` falla si los XML versionados están ausentes u obsoletos.
+- `scripts/generate-rss.test.js` — pruebas del generador, metadata, serialización XML, localización y presencia de RSS en todos los HTML de producción.
 - `.gitignore` — solo ignora `/.idea/` (el proyecto se abre desde Rider/JetBrains).
 - `references/Blog Design/` — material de referencia de diseño, no código de producción:
   - `Blog Santi Andrade.dc.html` — el mockup funcional de la maqueta objetivo del blog. Ver "La maqueta de referencia" más abajo.
@@ -135,11 +138,18 @@ Sigue estos pasos en orden. Esta guía está pensada para que cualquier agente d
 
 5. **Crea `<id>/index.html` para la URL permanente.** Copia el `index.html` raíz, añade `<meta name="initial-post" content="<id>">` y `<base href="../">`, y sustituye `title`, descripción, canonical, Open Graph y Twitter por los del artículo. GitHub Pages podrá servir así `/blog/<id>/` con estado HTTP 200 y los robots sociales recibirán metadatos propios sin depender de ejecutar JavaScript.
 
-6. **Verifica con un servidor estático local**: la card nueva debe apuntar a `/blog/<id>/`, el filtro por tag y el buscador deben encontrarla, la URL directa debe responder y abrir el artículo, y atrás/adelante debe mantener ruta, TOC, contenido y ambos idiomas correctos. Abrir `index.html` por `file://` sigue siendo útil para la home, pero no reproduce las rutas HTTP de GitHub Pages.
+6. **Regenera los feeds RSS** después de modificar `posts-meta.js` y comprueba que los XML versionados están actualizados:
+
+   ```bash
+   node scripts/generate-rss.js
+   node scripts/generate-rss.js --check
+   ```
+
+7. **Verifica con un servidor estático local**: la card nueva debe apuntar a `/blog/<id>/`, el filtro por tag y el buscador deben encontrarla, la URL directa debe responder y abrir el artículo, y atrás/adelante debe mantener ruta, TOC, contenido y ambos idiomas correctos. Comprueba también que los feeds incluyen el nuevo título, extracto y permalink en el idioma correspondiente. Abrir `index.html` por `file://` sigue siendo útil para la home, pero no reproduce las rutas HTTP de GitHub Pages.
 
 ## Cómo trabajar aquí
 
-- No hay comandos de build/lint/test que ejecutar — es HTML/CSS/JS estático. Verificar cambios abriendo el HTML directamente en el navegador.
+- No hay build, linter ni `package.json`. Para cualquier cambio que afecte a metadata, feeds o puntos de entrada HTML, ejecutar `node --test scripts/generate-rss.test.js` y `node scripts/generate-rss.js --check`, además de verificar el sitio en navegador.
 - Al implementar el blog real a partir de las referencias, traducir el mockup a HTML/CSS/JS estándar: los `onClick="{{ ... }}"` pasan a `addEventListener`, los `style-hover`/`style-focus` a reglas `:hover`/`:focus-visible` en una hoja de estilos, y los estilos inline a clases. La lógica del `<script type="text/x-dc">` (rutas, toggles de tema/idioma, filtrado, copiar código) sí es JS normal y se puede portar casi literalmente.
 - El contenido del blog es bilingüe por defecto (español primero, inglés como alternativa vía toggle) — mantener esa convención si se añade contenido nuevo.
 - El sitio se sirve desde una subruta (`/blog`). Los assets deben ser relativos (las entradas de posts usan `<base href="../">`); las URLs de navegación las construye `js/main.js` a partir de `meta[name="site-base"]`, nunca desde la raíz del dominio a mano.

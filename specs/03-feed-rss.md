@@ -1,6 +1,6 @@
 # Spec 03 — Feed RSS resumido y bilingüe
 
-**Estado:** Propuesto para revisión
+**Estado:** Aprobado
 **Dependencias:** Arquitectura de datos de posts y permalinks estáticos actuales
 **Fecha:** 2026-08-01
 
