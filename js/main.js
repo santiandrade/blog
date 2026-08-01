@@ -1,5 +1,117 @@
 (function () {
   var root = document.documentElement;
+  var siteBasePath = (document.querySelector('meta[name="site-base"]') || {}).content || "/";
+  var siteOrigin = (document.querySelector('meta[name="site-origin"]') || {}).content || window.location.origin;
+  var currentPostId = null;
+  var navigationToken = 0;
+
+  if (siteBasePath.charAt(0) !== "/") siteBasePath = "/" + siteBasePath;
+  if (siteBasePath.slice(-1) !== "/") siteBasePath += "/";
+
+  function postPath(postId) {
+    return siteBasePath + encodeURIComponent(postId) + "/";
+  }
+
+  function absoluteUrl(path) {
+    return siteOrigin.replace(/\/$/, "") + path;
+  }
+
+  function setMeta(selector, value) {
+    var element = document.querySelector(selector);
+    if (element) element.setAttribute("content", value);
+  }
+
+  function updateDocumentMetadata(route, postId) {
+    var lang = root.dataset.lang === "en" ? "en" : "es";
+    var posts = window.SITE_POSTS_META || [];
+    var post = posts.find(function (item) { return item.id === postId; });
+    var title = "Santi Andrade / Blog";
+    var description = lang === "en"
+      ? "Notes and reflections on artificial intelligence by Santi Andrade."
+      : "Notas y reflexiones sobre inteligencia artificial de Santi Andrade.";
+    var url = absoluteUrl(siteBasePath);
+    var type = "website";
+
+    if (route === "post" && post) {
+      title = post.title[lang] + " / Santi Andrade";
+      description = post.excerpt[lang];
+      url = absoluteUrl(postPath(post.id));
+      type = "article";
+    }
+
+    document.title = title;
+    var canonical = document.querySelector('link[rel="canonical"]');
+    if (canonical) canonical.setAttribute("href", url);
+    setMeta('meta[name="description"]', description);
+    setMeta('meta[property="og:title"]', title);
+    setMeta('meta[property="og:description"]', description);
+    setMeta('meta[property="og:url"]', url);
+    setMeta('meta[property="og:type"]', type);
+    setMeta('meta[name="twitter:title"]', title);
+    setMeta('meta[name="twitter:description"]', description);
+  }
+
+  function routeFromLocation() {
+    var posts = window.SITE_POSTS_META || [];
+    var initialPost = (document.querySelector('meta[name="initial-post"]') || {}).content;
+    var postId = initialPost || null;
+
+    if (window.location.protocol !== "file:") {
+      var path = window.location.pathname;
+      if (path.indexOf(siteBasePath) === 0) {
+        var relativePath = path.slice(siteBasePath.length).replace(/^\/+|\/+$/g, "");
+        if (relativePath && relativePath.indexOf("/") === -1) {
+          try {
+            postId = decodeURIComponent(relativePath);
+          } catch (error) {
+            postId = relativePath;
+          }
+        } else if (!relativePath) {
+          postId = null;
+        }
+      }
+    }
+
+    var postExists = posts.some(function (post) { return post.id === postId; });
+    return postExists ? { route: "post", postId: postId } : { route: "home", postId: null };
+  }
+
+  function updateNavigationHrefs() {
+    document.querySelectorAll('[data-go="home"]').forEach(function (link) {
+      link.setAttribute("href", siteBasePath);
+    });
+    document.querySelectorAll('[data-go="about"]').forEach(function (link) {
+      link.setAttribute("href", siteBasePath);
+    });
+  }
+
+  var loadingPosts = {};
+
+  function ensurePostLoaded(postId, callback) {
+    if ((window.SITE_POST_BODIES || {})[postId]) {
+      callback(true);
+      return;
+    }
+    if (loadingPosts[postId]) {
+      loadingPosts[postId].push(callback);
+      return;
+    }
+
+    loadingPosts[postId] = [callback];
+    var script = document.createElement("script");
+    var scriptBase = window.location.protocol === "file:" ? "" : siteBasePath;
+    script.src = scriptBase + "js/data/posts/" + encodeURIComponent(postId) + ".js";
+    script.onload = function () {
+      var loaded = Boolean((window.SITE_POST_BODIES || {})[postId]);
+      loadingPosts[postId].forEach(function (done) { done(loaded); });
+      delete loadingPosts[postId];
+    };
+    script.onerror = function () {
+      loadingPosts[postId].forEach(function (done) { done(false); });
+      delete loadingPosts[postId];
+    };
+    document.head.appendChild(script);
+  }
 
   function syncPlaceholder(lang) {
     var input = document.querySelector("[data-search]");
@@ -7,22 +119,50 @@
   }
 
   function initState() {
-    root.dataset.route = "home";
     root.dataset.theme = localStorage.getItem("sa-theme") || "light";
     root.dataset.lang = localStorage.getItem("sa-lang") || "es";
     syncPlaceholder(root.dataset.lang);
     renderTags();
     renderPostList();
     renderAbout();
-    var posts = window.SITE_POSTS_META || [];
-    if (posts[0]) renderPost(posts[0].id);
+    updateNavigationHrefs();
+    var initialRoute = routeFromLocation();
+    root.dataset.route = initialRoute.route;
+    updateDocumentMetadata(initialRoute.route, initialRoute.postId);
+    if (initialRoute.route === "post") {
+      var initialNavigationToken = ++navigationToken;
+      ensurePostLoaded(initialRoute.postId, function (loaded) {
+        if (loaded && initialNavigationToken === navigationToken) renderPost(initialRoute.postId);
+      });
+    }
+    if (window.location.protocol !== "file:" && window.history.replaceState) {
+      window.history.replaceState(initialRoute, "", window.location.href);
+    }
     var yearEl = document.querySelector("[data-year]");
     if (yearEl) yearEl.textContent = new Date().getFullYear();
   }
 
-  function goTo(route) {
+  function goTo(route, postId, options) {
+    options = options || {};
+    if (options.navigationToken && options.navigationToken !== navigationToken) return;
+    if (!options.navigationToken) options.navigationToken = ++navigationToken;
+    if (route === "post") {
+      if (!(window.SITE_POST_BODIES || {})[postId]) {
+        ensurePostLoaded(postId, function (loaded) {
+          if (loaded && options.navigationToken === navigationToken) goTo(route, postId, options);
+        });
+        return;
+      }
+      if (!renderPost(postId)) return;
+      postId = currentPostId;
+    }
     root.dataset.route = route;
-    window.scrollTo(0, 0);
+    updateDocumentMetadata(route, postId);
+    if (!options.fromHistory && window.location.protocol !== "file:" && window.history.pushState) {
+      var path = route === "post" ? postPath(postId) : siteBasePath;
+      window.history.pushState({ route: route, postId: postId || null }, "", path);
+    }
+    if (!options.keepScroll) window.scrollTo(0, 0);
   }
 
   function toggleTheme() {
@@ -36,6 +176,7 @@
     root.dataset.lang = lang;
     syncPlaceholder(lang);
     localStorage.setItem("sa-lang", lang);
+    updateDocumentMetadata(root.dataset.route, currentPostId);
   }
 
   function dualSpan(value) {
@@ -78,7 +219,7 @@
             "<span>" + dualSpan({ es: post.readMin + " MIN", en: post.readMin + " MIN" }) + "</span>" +
           "</div>" +
           '<div class="post-card-content">' +
-            '<h2><a href="#" data-go="post" data-post-id="' + post.id + '">' + dualSpan(post.title) + "</a></h2>" +
+            '<h2><a href="' + postPath(post.id) + '" data-go="post" data-post-id="' + post.id + '">' + dualSpan(post.title) + "</a></h2>" +
             "<p>" + dualSpan(post.excerpt) + "</p>" +
             '<div class="post-card-tags">' +
               post.tags.map(tagLabel).map(function (l) { return "<span>" + l + "</span>"; }).join("") +
@@ -94,14 +235,12 @@
     }
   }
 
-  var currentPostId = null;
-
   function renderPost(postId) {
     var posts = window.SITE_POSTS_META || [];
-    var post = posts.find(function (p) { return p.id === postId; }) || posts[0];
-    if (!post) return;
+    var post = posts.find(function (p) { return p.id === postId; });
+    if (!post) return false;
     var content = (window.SITE_POST_BODIES || {})[post.id];
-    if (!content) return;
+    if (!content) return false;
     currentPostId = post.id;
 
     var header = document.querySelector("[data-post-header]");
@@ -136,7 +275,7 @@
         '<p class="post-intro">' + content.introHtml + "</p>" +
         content.bodyHtml +
         '<nav class="post-pair post-pair--single" data-r="pair">' +
-          '<a href="#" class="post-pair-link" data-go="home">' +
+          '<a href="' + siteBasePath + '" class="post-pair-link" data-go="home">' +
             '<span class="post-pair-kicker">' + dualSpan({ es: "Volver", en: "Back" }) + "</span>" +
             "<strong>" + dualSpan({ es: "Todos los posts", en: "All posts" }) + "</strong>" +
           "</a>" +
@@ -144,6 +283,7 @@
     }
 
     setupTocObserver();
+    return true;
   }
 
   var tocObserver = null;
@@ -287,11 +427,9 @@
     }
     var goEl = e.target.closest("[data-go]");
     if (goEl) {
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
       e.preventDefault();
-      if (goEl.dataset.go === "post" && goEl.dataset.postId) {
-        renderPost(goEl.dataset.postId);
-      }
-      goTo(goEl.dataset.go);
+      goTo(goEl.dataset.go, goEl.dataset.postId);
       return;
     }
     var copyBtn = e.target.closest("[data-copy-btn]");
@@ -310,6 +448,11 @@
 
   var searchInput = document.querySelector("[data-search]");
   if (searchInput) searchInput.addEventListener("input", onSearch);
+
+  window.addEventListener("popstate", function (event) {
+    var state = event.state || routeFromLocation();
+    goTo(state.route || "home", state.postId, { fromHistory: true });
+  });
 
   initState();
 })();
