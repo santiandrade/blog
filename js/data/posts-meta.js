@@ -27,7 +27,7 @@ window.SITE_POSTS_META = [
     number: "02",
     date: "2026.08.01",
     readMin: 8,
-    tags: ["hermes", "obsidian", "conocimiento"],
+    tags: ["hermes", "obsidian"],
     terms:
       "segundo cerebro second brain obsidian hermes tars conocimiento knowledge llm wiki karpathy notas notes markdown memoria memory rag fuentes sources esquema schema casos de uso use cases",
     title: {

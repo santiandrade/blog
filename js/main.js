@@ -252,6 +252,12 @@
           "<span>" + post.date + "</span>" +
           "<span>" + dualSpan({ es: post.readMin + " min de lectura", en: post.readMin + " min read" }) + "</span>" +
           "<span>" + post.tags.map(tagLabel).join(" · ") + "</span>" +
+        "</div>" +
+        '<div class="post-actions">' +
+          '<button type="button" class="post-share" data-share-post aria-live="polite">' +
+            '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M18 8a3 3 0 1 0-2.83-4A3 3 0 0 0 15 5c0 .18.02.36.05.53L8.91 9.02a3 3 0 1 0 0 5.96l6.14 3.49A3 3 0 0 0 15 19a3 3 0 1 0 .91-2.15l-6.14-3.49c.15-.43.15-.89 0-1.32l6.14-3.49A3 3 0 0 0 18 8Z" fill="currentColor"/></svg>' +
+            dualSpan({ es: "Compartir", en: "Share" }) +
+          "</button>" +
         "</div>";
     }
 
@@ -415,6 +421,64 @@
     }, 1400);
   }
 
+  function showShareFeedback(btn, copied) {
+    var previous = btn.innerHTML;
+    btn.textContent = copied
+      ? (root.dataset.lang === "en" ? "Link copied" : "Enlace copiado")
+      : (root.dataset.lang === "en" ? "Could not copy" : "No se pudo copiar");
+    setTimeout(function () { btn.innerHTML = previous; }, 1600);
+  }
+
+  function copyShareUrl(url, btn) {
+    function legacyCopy() {
+      var input = document.createElement("textarea");
+      input.value = url;
+      input.setAttribute("readonly", "");
+      input.style.position = "fixed";
+      input.style.opacity = "0";
+      document.body.appendChild(input);
+      input.select();
+      var copied = false;
+      try { copied = document.execCommand("copy"); } catch (error) { copied = false; }
+      document.body.removeChild(input);
+      showShareFeedback(btn, copied);
+    }
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      try {
+        Promise.resolve(navigator.clipboard.writeText(url))
+          .then(function () { showShareFeedback(btn, true); })
+          .catch(legacyCopy);
+      } catch (error) {
+        legacyCopy();
+      }
+    } else {
+      legacyCopy();
+    }
+  }
+
+  function shareCurrentPost(btn) {
+    var post = (window.SITE_POSTS_META || []).find(function (item) { return item.id === currentPostId; });
+    if (!post) return;
+    var lang = root.dataset.lang === "en" ? "en" : "es";
+    var data = {
+      title: post.title[lang],
+      text: post.excerpt[lang],
+      url: siteOrigin.replace(/\/$/, "") + postPath(post.id)
+    };
+    if (typeof navigator.share === "function") {
+      try {
+        Promise.resolve(navigator.share(data)).catch(function (error) {
+          if (!error || error.name !== "AbortError") copyShareUrl(data.url, btn);
+        });
+      } catch (error) {
+        if (!error || error.name !== "AbortError") copyShareUrl(data.url, btn);
+      }
+    } else {
+      copyShareUrl(data.url, btn);
+    }
+  }
+
   document.addEventListener("click", function (e) {
     var tocLink = e.target.closest("[data-post-toc] a[href^='#']");
     if (tocLink) {
@@ -435,6 +499,11 @@
     var copyBtn = e.target.closest("[data-copy-btn]");
     if (copyBtn) {
       copyCode(copyBtn);
+      return;
+    }
+    var shareBtn = e.target.closest("[data-share-post]");
+    if (shareBtn) {
+      shareCurrentPost(shareBtn);
       return;
     }
     var langBtn = e.target.closest("[data-set-lang]");

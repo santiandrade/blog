@@ -180,6 +180,9 @@ html[data-lang="en"] .lang-btn[data-set-lang="en"]{color:var(--accent)}
 .post-kicker{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
 .post-title{font-size:clamp(36px,5vw,62px);max-width:22ch}
 .post-meta{display:flex;flex-wrap:wrap;gap:28px;margin-top:26px;font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.post-actions{display:flex;margin-top:20px}
+.post-share{display:inline-flex;align-items:center;gap:8px;min-height:44px;background:transparent;color:var(--ink);border:2px solid var(--line);padding:8px 12px;font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer}
+.post-share:hover{border-color:var(--accent);color:var(--accent)}
 
 .post-doc{display:grid;grid-template-columns:200px minmax(0,1fr);gap:56px;padding-top:44px}
 .post-toc{position:sticky;top:32px;align-self:start;display:flex;flex-direction:column;gap:10px;font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.08em}
