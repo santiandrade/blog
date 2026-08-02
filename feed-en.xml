@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Santi Andrade / Blog</title>
+    <link>https://santiandrade.github.io/blog/</link>
+    <description>Notes and reflections on artificial intelligence by Santi Andrade.</description>
+    <language>en</language>
+    <atom:link href="https://santiandrade.github.io/blog/feed-en.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>How I built a second brain with Obsidian and Hermes</title>
+      <description>Why a collection of notes is not enough, and how an agent can turn it into living, traceable and useful knowledge.</description>
+      <pubDate>Sat, 01 Aug 2026 00:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://santiandrade.github.io/blog/segundo-cerebro-obsidian-hermes/</guid>
+      <link>https://santiandrade.github.io/blog/segundo-cerebro-obsidian-hermes/?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=blog_feed</link>
+    </item>
+    <item>
+      <title>From chatbot to companion: why I built my own AI agent with Hermes</title>
+      <description>What happens when AI stops living in a browser tab and starts remembering, using tools and helping in everyday life.</description>
+      <pubDate>Sat, 01 Aug 2026 00:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://santiandrade.github.io/blog/hermes-agent/</guid>
+      <link>https://santiandrade.github.io/blog/hermes-agent/?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=blog_feed</link>
+    </item>
+  </channel>
+</rss>

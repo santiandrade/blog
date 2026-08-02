@@ -1,6 +1,6 @@
 # Spec 03 — Feed RSS resumido y bilingüe
 
-**Estado:** Propuesto para revisión
+**Estado:** Implementado
 **Dependencias:** Arquitectura de datos de posts y permalinks estáticos actuales
 **Fecha:** 2026-08-01
 
@@ -23,6 +23,8 @@ El pie de todas las páginas de producción mostrará enlaces visibles y compren
 - Inglés: `Subscribe: RSS ES · RSS EN`
 
 Los enlaces serán URLs HTTPS normales, no enlaces con el esquema `feed:`, para que funcionen en cualquier navegador y puedan copiarse o pegarse en Feedly, Inoreader, NetNewsWire, Reeder, FreshRSS u otro lector.
+
+Como los navegadores actuales suelen mostrar el XML sin ofrecer una suscripción guiada, cada idioma tendrá además una acción adyacente `Copiar ES` / `Copiar EN` y la ayuda breve `Copia la URL y añádela a tu lector RSS.` / `Copy the URL and add it to your RSS reader.`. Tras copiar, un estado accesible anunciará el resultado en el idioma activo. Si la API moderna del portapapeles no está disponible o falla, se intentará una copia compatible y, si tampoco funciona, se indicará que debe abrirse el feed y copiar su dirección manualmente.
 
 Además, todos los documentos HTML de producción declararán ambos feeds mediante `<link rel="alternate" type="application/rss+xml">` dentro de `<head>`. Esto permitirá que lectores y extensiones compatibles detecten los feeds al recibir únicamente la URL del blog.
 
@@ -101,9 +103,10 @@ Cada uno incluirá:
 
 - las dos declaraciones de autodetección RSS en `<head>`, con URLs absolutas para que `<base href="../">` no introduzca diferencias entre puntos de entrada;
 - los enlaces visibles `RSS ES` y `RSS EN` dentro de `.site-footer`;
+- las acciones `Copiar ES` y `Copiar EN`, una instrucción breve y una región de estado accesible;
 - exactamente una copia de cada enlace, sin modificar los HTML de referencia bajo `references/`.
 
-Los enlaces del pie respetarán el sistema visual existente, el contraste de ambos temas, el responsive y la navegación por teclado. No se añadirá un modal ni JavaScript específico para suscribirse: el enlace normal ya permite abrir, copiar o entregar el feed a una aplicación compatible.
+Los enlaces y controles del pie respetarán el sistema visual existente, el contraste de ambos temas, el responsive y la navegación por teclado. No se añadirá un modal, una URL propietaria ni una redirección a un lector concreto: los enlaces HTTPS directos seguirán disponibles y el JavaScript se limitará a facilitar su copia.
 
 ## Archivos previstos para la implementación
 
@@ -119,7 +122,8 @@ Los enlaces del pie respetarán el sistema visual existente, el contraste de amb
 - `index.html`
 - `hermes-agent/index.html`
 - `segundo-cerebro-obsidian-hermes/index.html`
-- `css/styles.css`, solo si los enlaces RSS necesitan estilos adicionales que no cubra `.site-footer`
+- `css/styles.css`
+- `js/main.js`
 - `CLAUDE.md`
 
 No se modificarán los cuerpos de los artículos ni la estructura de `SITE_POSTS_META` salvo que la implementación descubra un dato estrictamente necesario y se documente antes de incorporarlo.
@@ -132,7 +136,7 @@ No se modificarán los cuerpos de los artículos ni la estructura de `SITE_POSTS
 4. Generar `feed.xml` y `feed-en.xml` con los posts actuales.
 5. Añadir el modo `--check` y verificar que detecta tanto archivos ausentes como contenido obsoleto.
 6. Añadir las declaraciones de autodetección a todos los HTML de producción.
-7. Añadir los enlaces bilingües de suscripción al pie de todos los HTML de producción.
+7. Añadir los enlaces bilingües de suscripción, acciones de copia, ayuda y estado accesible al pie de todos los HTML de producción.
 8. Documentar en `CLAUDE.md` la generación y validación del RSS dentro del flujo para publicar nuevos posts.
 9. Ejecutar las validaciones estructurales, funcionales y visuales descritas en este spec.
 
@@ -155,7 +159,8 @@ No se modificarán los cuerpos de los artículos ni la estructura de `SITE_POSTS
 - Confirmar que los tres HTML de producción contienen exactamente dos declaraciones RSS y dos enlaces visibles, y que `references/` permanece intacto.
 - Servir el repositorio mediante un servidor HTTP estático y comprobar que `/blog/feed.xml` y `/blog/feed-en.xml` responden con HTTP 200 y contenido XML.
 - Verificar que las URLs de feed se resuelven correctamente desde la portada y desde cada permalink.
-- Probar los enlaces con navegación por teclado y en ambos idiomas, temas y anchos de escritorio/móvil.
+- Probar los enlaces y controles de copia con navegación por teclado y en ambos idiomas, temas y anchos de escritorio/móvil.
+- Confirmar que la copia usa la URL del idioma elegido, anuncia éxito y ofrece un error veraz si fallan tanto Clipboard API como el fallback.
 - Confirmar que añadir los enlaces no provoca overflow ni altera la navegación existente.
 
 ### Regresión y mantenimiento
@@ -175,7 +180,7 @@ No se modificarán los cuerpos de los artículos ni la estructura de `SITE_POSTS
 - [ ] Los títulos y extractos coinciden con los que aparecen en las tarjetas de la portada.
 - [ ] Los enlaces llevan UTM para identificar tráfico RSS y los GUID conservan los permalinks canónicos limpios.
 - [ ] Los feeds pueden descubrirse automáticamente desde todos los HTML de producción.
-- [ ] El pie ofrece enlaces visibles, bilingües, accesibles y copiables para RSS ES y RSS EN.
+- [ ] El pie ofrece enlaces directos, ayuda breve y controles accesibles para copiar las URLs de RSS ES y RSS EN, con confirmación o error localizado.
 - [ ] `node scripts/generate-rss.js --check` detecta feeds ausentes u obsoletos y pasa tras regenerarlos.
 - [ ] GitHub Pages sirve ambos feeds con HTTP 200 después del despliegue.
 - [ ] La implementación no introduce CMS, backend, dependencias de ejecución ni contenido duplicado mantenido a mano.
@@ -200,4 +205,5 @@ No se modificarán los cuerpos de los artículos ni la estructura de `SITE_POSTS
 - **Script Node sin dependencias.** El repositorio ya usa JavaScript y el volumen de datos no justifica una librería ni un `package.json`.
 - **Enlaces HTTPS normales en vez de `feed:`.** Son copiables y compatibles con navegadores y lectores sin depender de asociaciones de protocolo del sistema.
 - **Enlaces visibles en el pie en vez de ampliar la cabecera.** La cabecera ya concentra navegación, idioma y tema; el pie ofrece una ubicación persistente sin saturarla, especialmente en móvil.
+- **Copia guiada sin sustituir el feed.** Los botones de copia explican el paso que los navegadores ya no resuelven, mientras los enlaces HTTPS directos conservan la compatibilidad con lectores y extensiones.
 - **UTM solo en `<link>`, no en `<guid>`.** Permite atribuir las visitas al RSS sin comprometer la identidad estable de cada entrada.
