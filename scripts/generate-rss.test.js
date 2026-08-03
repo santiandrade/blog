@@ -230,7 +230,7 @@ test("the automation post is registered with a physical bilingual shell", () => 
 
   assert.ok(automationPost, "falta la metadata del nuevo post");
   assert.equal(automationPost.number, "03");
-  assert.equal(automationPost.date, "2026.08.03");
+  assert.equal(automationPost.date, "2026.08.06");
   assert.equal(automationPost.readMin, 8);
   assert.deepEqual(automationPost.tags, ["automatizacion", "agentes", "hermes"]);
   assert.ok(automationPost.title.es);
@@ -263,6 +263,46 @@ test("the automation post is registered with a physical bilingual shell", () => 
   assert.match(shell, /rel="canonical" href="https:\/\/santiandrade\.github\.io\/blog\/automatizaciones-ia-que-saben-cuando-callarse\/"/);
 });
 
+test("the PDF menu post is registered for 13 August with a physical bilingual shell", () => {
+  const root = path.resolve(__dirname, "..");
+  const posts = loadPosts(path.join(root, "js", "data", "posts-meta.js"));
+  const pdfPost = posts.find((item) => item.id === "pdf-mensual-aviso-diario-automatizacion-familiar");
+
+  assert.ok(pdfPost, "falta la metadata del post del PDF mensual");
+  assert.equal(pdfPost.number, "04");
+  assert.equal(pdfPost.date, "2026.08.13");
+  assert.equal(pdfPost.readMin, 9);
+  assert.deepEqual(pdfPost.tags, ["automatizacion", "familia", "hermes"]);
+  assert.ok(pdfPost.title.es);
+  assert.ok(pdfPost.title.en);
+  assert.ok(pdfPost.excerpt.es);
+  assert.ok(pdfPost.excerpt.en);
+  assert.equal(pdfPost.toc.length, 10);
+
+  const bodyPath = path.join(root, "js", "data", "posts", pdfPost.id + ".js");
+  assert.ok(fs.existsSync(bodyPath), "falta el cuerpo bilingüe del post");
+  const bodySource = fs.readFileSync(bodyPath, "utf8");
+  const context = vm.createContext({ window: {} });
+  vm.runInContext(bodySource, context, { timeout: 1000 });
+  const body = context.window.SITE_POST_BODIES[pdfPost.id];
+  assert.ok(body.introHtml);
+  assert.ok(body.bodyHtml);
+  const headingIds = [...body.bodyHtml.matchAll(/<h2 id="([^"]+)">/g)].map((match) => match[1]);
+  assert.deepEqual(headingIds, pdfPost.toc.map((entry) => entry.id));
+  assert.equal((bodySource.match(/data-l="es"/g) || []).length, (bodySource.match(/data-l="en"/g) || []).length);
+  assert.match(bodySource, /class="code-block"/);
+  assert.match(bodySource, /class="post-table post-table--stacked"/);
+  assert.match(bodySource, /https:\/\/hermes-agent\.nousresearch\.com\/docs\/user-guide\/features\/cron/);
+  assert.doesNotMatch(bodySource, /\/Users\/|NOTION_API_KEY|\bTODO\b/);
+  assert.doesNotMatch(bodySource, /placeholder/i);
+
+  const shellPath = path.join(root, pdfPost.id, "index.html");
+  const shell = fs.readFileSync(shellPath, "utf8");
+  assert.match(shell, /name="initial-post" content="pdf-mensual-aviso-diario-automatizacion-familiar"/);
+  assert.match(shell, /<base href="\.\.\/">/);
+  assert.match(shell, /rel="canonical" href="https:\/\/santiandrade\.github\.io\/blog\/pdf-mensual-aviso-diario-automatizacion-familiar\/"/);
+});
+
 test("language and theme controls expose at least 30 px touch targets", () => {
   const stylesheet = fs.readFileSync(path.resolve(__dirname, "..", "css", "styles.css"), "utf8");
   assert.match(stylesheet, /\.lang-btn\{[^}]*min-width:30px[^}]*min-height:30px/);
@@ -275,12 +315,14 @@ test("every production HTML shell exposes both feeds and every post script", () 
     "index.html",
     "hermes-agent/index.html",
     "segundo-cerebro-obsidian-hermes/index.html",
-    "automatizaciones-ia-que-saben-cuando-callarse/index.html"
+    "automatizaciones-ia-que-saben-cuando-callarse/index.html",
+    "pdf-mensual-aviso-diario-automatizacion-familiar/index.html"
   ];
   const postScripts = [
     "js/data/posts/hermes-agent.js",
     "js/data/posts/segundo-cerebro-obsidian-hermes.js",
-    "js/data/posts/automatizaciones-ia-que-saben-cuando-callarse.js"
+    "js/data/posts/automatizaciones-ia-que-saben-cuando-callarse.js",
+    "js/data/posts/pdf-mensual-aviso-diario-automatizacion-familiar.js"
   ];
 
   for (const shell of shells) {

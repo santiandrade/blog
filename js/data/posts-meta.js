@@ -23,6 +23,39 @@
 //   toc       [{ id, es, en }] — índice lateral del artículo
 window.SITE_POSTS_META = [
   {
+    id: "pdf-mensual-aviso-diario-automatizacion-familiar",
+    number: "04",
+    date: "2026.08.13",
+    readMin: 9,
+    tags: ["automatizacion", "familia", "hermes"],
+    terms:
+      "pdf mensual monthly aviso diario daily notification automatización automation familia family guardería nursery menú menu tabla table extracción extraction ocr revisión visual visual review datos estructurados structured data idempotencia hermes cron scripts",
+    title: {
+      es: "De un PDF mensual a un aviso diario: automatizar una tarea familiar sin crear otra app",
+      en: "From a monthly PDF to a daily notification: automating a family task without building another app"
+    },
+    excerpt: {
+      es: "Cada mes recibo un PDF con una tabla y cada día necesito una sola respuesta. Así lo convertí en avisos útiles mediante IA, validación visual y un pequeño script, sin construir otra app doméstica que mantener.",
+      en: "Every month I receive a PDF containing a table, and every day I need one answer. Here is how I turned it into useful notifications with AI, visual validation and a small script, without building another household app to maintain."
+    },
+    kicker: {
+      es: "Post 04 · Automatización familiar",
+      en: "Post 04 · Family automation"
+    },
+    toc: [
+      { id: "s1", es: "La pregunta, no la app", en: "The question, not the app" },
+      { id: "s2", es: "Un PDF no es una base de datos", en: "A PDF is not a database" },
+      { id: "s3", es: "Procesar una vez", en: "Process once" },
+      { id: "s4", es: "Revisión visual", en: "Visual review" },
+      { id: "s5", es: "Los huecos importan", en: "Gaps matter" },
+      { id: "s6", es: "Fuente y correcciones", en: "Source and corrections" },
+      { id: "s7", es: "El aviso diario", en: "The daily notification" },
+      { id: "s8", es: "El mantenimiento real", en: "The real maintenance" },
+      { id: "s9", es: "Un patrón reutilizable", en: "A reusable pattern" },
+      { id: "s10", es: "Automatizar la fricción", en: "Automate the friction" }
+    ]
+  },
+  {
     id: "automatizaciones-ia-que-saben-cuando-callarse",
     number: "03",
     date: "2026.08.06",

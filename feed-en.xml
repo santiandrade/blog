@@ -7,6 +7,13 @@
     <language>en</language>
     <atom:link href="https://santiandrade.github.io/blog/feed-en.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>From a monthly PDF to a daily notification: automating a family task without building another app</title>
+      <description>Every month I receive a PDF containing a table, and every day I need one answer. Here is how I turned it into useful notifications with AI, visual validation and a small script, without building another household app to maintain.</description>
+      <pubDate>Thu, 13 Aug 2026 00:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://santiandrade.github.io/blog/pdf-mensual-aviso-diario-automatizacion-familiar/</guid>
+      <link>https://santiandrade.github.io/blog/pdf-mensual-aviso-diario-automatizacion-familiar/?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=blog_feed</link>
+    </item>
+    <item>
       <title>AI automations that know when to stay quiet</title>
       <description>A useful automation does not need to announce every success. Here is how I design tasks that stay quiet when everything works, speak up when something changes and never mistake an error for no news.</description>
       <pubDate>Thu, 06 Aug 2026 00:00:00 GMT</pubDate>
