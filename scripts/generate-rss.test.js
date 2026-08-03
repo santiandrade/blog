@@ -6,6 +6,7 @@ const fs = require("node:fs");
 const os = require("node:os");
 const path = require("node:path");
 const { spawnSync } = require("node:child_process");
+const vm = require("node:vm");
 
 const {
   escapeXml,
@@ -222,12 +223,64 @@ test("check mode fails when feeds are absent or metadata changes", (t) => {
   assert.throws(() => generateFeeds(fixture.root, true), /desactualizado/);
 });
 
-test("every production HTML shell exposes both feeds", () => {
+test("the automation post is registered with a physical bilingual shell", () => {
+  const root = path.resolve(__dirname, "..");
+  const posts = loadPosts(path.join(root, "js", "data", "posts-meta.js"));
+  const automationPost = posts.find((item) => item.id === "automatizaciones-ia-que-saben-cuando-callarse");
+
+  assert.ok(automationPost, "falta la metadata del nuevo post");
+  assert.equal(automationPost.number, "03");
+  assert.equal(automationPost.date, "2026.08.03");
+  assert.equal(automationPost.readMin, 8);
+  assert.deepEqual(automationPost.tags, ["automatizacion", "agentes", "hermes"]);
+  assert.ok(automationPost.title.es);
+  assert.ok(automationPost.title.en);
+  assert.ok(automationPost.excerpt.es);
+  assert.ok(automationPost.excerpt.en);
+  assert.equal(automationPost.toc.length, 7);
+
+  const bodyPath = path.join(root, "js", "data", "posts", automationPost.id + ".js");
+  assert.ok(fs.existsSync(bodyPath), "falta el cuerpo bilingüe del post");
+  const bodySource = fs.readFileSync(bodyPath, "utf8");
+  const context = vm.createContext({ window: {} });
+  vm.runInContext(bodySource, context, { timeout: 1000 });
+  const body = context.window.SITE_POST_BODIES[automationPost.id];
+  assert.ok(body.introHtml);
+  assert.ok(body.bodyHtml);
+  const headingIds = [...body.bodyHtml.matchAll(/<h2 id="([^"]+)">/g)].map((match) => match[1]);
+  assert.deepEqual(headingIds, automationPost.toc.map((entry) => entry.id));
+  assert.equal((bodySource.match(/data-l="es"/g) || []).length, (bodySource.match(/data-l="en"/g) || []).length);
+  assert.match(bodySource, /class="code-block"/);
+  assert.match(bodySource, /class="code-block-pre"/);
+  assert.match(bodySource, /https:\/\/hermes-agent\.nousresearch\.com\/docs\/user-guide\/features\/cron/);
+  assert.doesNotMatch(bodySource, /\/Users\/|NOTION_API_KEY|\bTODO\b/);
+  assert.doesNotMatch(bodySource, /placeholder/i);
+
+  const shellPath = path.join(root, automationPost.id, "index.html");
+  const shell = fs.readFileSync(shellPath, "utf8");
+  assert.match(shell, /name="initial-post" content="automatizaciones-ia-que-saben-cuando-callarse"/);
+  assert.match(shell, /<base href="\.\.\/">/);
+  assert.match(shell, /rel="canonical" href="https:\/\/santiandrade\.github\.io\/blog\/automatizaciones-ia-que-saben-cuando-callarse\/"/);
+});
+
+test("language and theme controls expose at least 30 px touch targets", () => {
+  const stylesheet = fs.readFileSync(path.resolve(__dirname, "..", "css", "styles.css"), "utf8");
+  assert.match(stylesheet, /\.lang-btn\{[^}]*min-width:30px[^}]*min-height:30px/);
+  assert.match(stylesheet, /\.theme-toggle\{[^}]*width:30px[^}]*height:30px/);
+});
+
+test("every production HTML shell exposes both feeds and every post script", () => {
   const root = path.resolve(__dirname, "..");
   const shells = [
     "index.html",
     "hermes-agent/index.html",
-    "segundo-cerebro-obsidian-hermes/index.html"
+    "segundo-cerebro-obsidian-hermes/index.html",
+    "automatizaciones-ia-que-saben-cuando-callarse/index.html"
+  ];
+  const postScripts = [
+    "js/data/posts/hermes-agent.js",
+    "js/data/posts/segundo-cerebro-obsidian-hermes.js",
+    "js/data/posts/automatizaciones-ia-que-saben-cuando-callarse.js"
   ];
 
   for (const shell of shells) {
@@ -244,5 +297,8 @@ test("every production HTML shell exposes both feeds", () => {
     assert.match(html, /href="https:\/\/santiandrade\.github\.io\/blog\/feed-en\.xml"/);
     assert.match(html, /Suscribirse:/);
     assert.match(html, /Subscribe:/);
+    for (const postScript of postScripts) {
+      assert.match(html, new RegExp(`<script src="${postScript.replaceAll("/", "\\/")}" defer><\\/script>`), `${shell}: ${postScript}`);
+    }
   }
 });

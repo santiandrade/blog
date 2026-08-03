@@ -131,7 +131,7 @@ html[data-route="about"] [data-screen="about"]{display:block}
 .nav-sep{width:1px;height:20px;background:var(--line)}
 .lang-switch{display:flex;align-items:center;gap:6px;font-size:11px;font-family:"IBM Plex Mono",monospace;letter-spacing:.1em}
 .lang-switch-sep{color:var(--muted)}
-.lang-btn{background:none;border:0;padding:5px 0;color:var(--muted);font:inherit;letter-spacing:inherit;cursor:pointer}
+.lang-btn{display:inline-flex;align-items:center;justify-content:center;min-width:30px;min-height:30px;background:none;border:0;padding:5px;color:var(--muted);font:inherit;letter-spacing:inherit;cursor:pointer}
 .lang-btn:hover{color:var(--accent)}
 html[data-lang="es"] .lang-btn[data-set-lang="es"],
 html[data-lang="en"] .lang-btn[data-set-lang="en"]{color:var(--accent)}

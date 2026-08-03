@@ -23,6 +23,36 @@
 //   toc       [{ id, es, en }] — índice lateral del artículo
 window.SITE_POSTS_META = [
   {
+    id: "automatizaciones-ia-que-saben-cuando-callarse",
+    number: "03",
+    date: "2026.08.03",
+    readMin: 8,
+    tags: ["automatizacion", "agentes", "hermes"],
+    terms:
+      "automatizaciones automation inteligencia artificial ia ai agentes agents hermes tars cron scripts watchdog silencio silent notificaciones notifications alertas alerts observabilidad observability idempotencia no-agent no_agent productividad attention atención",
+    title: {
+      es: "Automatizaciones de IA que saben cuándo callarse",
+      en: "AI automations that know when to stay quiet"
+    },
+    excerpt: {
+      es: "Una automatización útil no necesita anunciar cada éxito. Así diseño tareas que guardan silencio cuando todo funciona, avisan cuando algo cambia y nunca confunden un error con la ausencia de novedades.",
+      en: "A useful automation does not need to announce every success. Here is how I design tasks that stay quiet when everything works, speak up when something changes and never mistake an error for no news."
+    },
+    kicker: {
+      es: "Post 03 · Automatización",
+      en: "Post 03 · Automation"
+    },
+    toc: [
+      { id: "s1", es: "Otra obligación", en: "Another obligation" },
+      { id: "s2", es: "Tres salidas", en: "Three outcomes" },
+      { id: "s3", es: "IA cuando aporta", en: "AI when it adds value" },
+      { id: "s4", es: "Cuatro casos reales", en: "Four real examples" },
+      { id: "s5", es: "Cuándo hablar", en: "When to speak up" },
+      { id: "s6", es: "Observabilidad", en: "Observability" },
+      { id: "s7", es: "Diseñar la atención", en: "Designing attention" }
+    ]
+  },
+  {
     id: "segundo-cerebro-obsidian-hermes",
     number: "02",
     date: "2026.08.01",
