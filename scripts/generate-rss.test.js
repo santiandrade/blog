@@ -272,7 +272,7 @@ test("the PDF menu post is registered for 13 August with a physical bilingual sh
   assert.equal(pdfPost.number, "04");
   assert.equal(pdfPost.date, "2026.08.13");
   assert.equal(pdfPost.readMin, 9);
-  assert.deepEqual(pdfPost.tags, ["automatizacion", "familia", "hermes"]);
+  assert.deepEqual(pdfPost.tags, ["automatizacion", "hermes"]);
   assert.ok(pdfPost.title.es);
   assert.ok(pdfPost.title.en);
   assert.ok(pdfPost.excerpt.es);

@@ -5,6 +5,5 @@ window.SITE_TAGS = [
   { id: "hermes", es: "Hermes", en: "Hermes" },
   { id: "agentes", es: "Agentes", en: "Agents" },
   { id: "obsidian", es: "Obsidian", en: "Obsidian" },
-  { id: "automatizacion", es: "Automatización", en: "Automation" },
-  { id: "familia", es: "Familia", en: "Family" }
+  { id: "automatizacion", es: "Automatización", en: "Automation" }
 ];

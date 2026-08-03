@@ -27,7 +27,7 @@ window.SITE_POSTS_META = [
     number: "04",
     date: "2026.08.13",
     readMin: 9,
-    tags: ["automatizacion", "familia", "hermes"],
+    tags: ["automatizacion", "hermes"],
     terms:
       "pdf mensual monthly aviso diario daily notification automatización automation familia family guardería nursery menú menu tabla table extracción extraction ocr revisión visual visual review datos estructurados structured data idempotencia hermes cron scripts",
     title: {
