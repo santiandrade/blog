@@ -25,7 +25,7 @@ window.SITE_POSTS_META = [
   {
     id: "automatizaciones-ia-que-saben-cuando-callarse",
     number: "03",
-    date: "2026.08.03",
+    date: "2026.08.06",
     readMin: 8,
     tags: ["automatizacion", "agentes", "hermes"],
     terms:
