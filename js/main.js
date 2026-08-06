@@ -234,7 +234,8 @@
           '<div class="post-card-content">' +
             '<h2><a href="' + postPath(post.id) + '" data-go="post" data-post-id="' + post.id + '">' + dualSpan(post.title) + "</a></h2>" +
             "<p>" + dualSpan(post.excerpt) + "</p>" +
-            (post.cardImage ? '<img class="post-card-image" src="' + post.cardImage.src + '" data-alt-es="' + post.cardImage.alt.es + '" data-alt-en="' + post.cardImage.alt.en + '" alt="' + post.cardImage.alt.es + '">' : "") +
+            '<a class="post-card-readmore" href="' + postPath(post.id) + '" data-go="post" data-post-id="' + post.id + '">' + dualSpan({ es: "Leer post", en: "Read post" }) + "</a>" +
+            (post.cardImage ?'<img class="post-card-image" src="' + post.cardImage.src + '" data-alt-es="' + post.cardImage.alt.es + '" data-alt-en="' + post.cardImage.alt.en + '" alt="' + post.cardImage.alt.es + '">' : "") +
             '<div class="post-card-tags">' +
               post.tags.map(tagLabel).map(function (l) { return "<span>" + l + "</span>"; }).join("") +
             "</div>" +
