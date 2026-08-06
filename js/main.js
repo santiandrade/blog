@@ -233,8 +233,8 @@
           "</div>" +
           '<div class="post-card-content">' +
             '<h2><a href="' + postPath(post.id) + '" data-go="post" data-post-id="' + post.id + '">' + dualSpan(post.title) + "</a></h2>" +
-            (post.cardImage ? '<img class="post-card-image" src="' + post.cardImage.src + '" data-alt-es="' + post.cardImage.alt.es + '" data-alt-en="' + post.cardImage.alt.en + '" alt="' + post.cardImage.alt.es + '">' : "") +
             "<p>" + dualSpan(post.excerpt) + "</p>" +
+            (post.cardImage ? '<img class="post-card-image" src="' + post.cardImage.src + '" data-alt-es="' + post.cardImage.alt.es + '" data-alt-en="' + post.cardImage.alt.en + '" alt="' + post.cardImage.alt.es + '">' : "") +
             '<div class="post-card-tags">' +
               post.tags.map(tagLabel).map(function (l) { return "<span>" + l + "</span>"; }).join("") +
             "</div>" +

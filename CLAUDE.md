@@ -67,8 +67,8 @@ Array de objetos, uno por post, ordenado del más reciente al más antiguo. Cont
 | `tags`    | array de ids de `tags.js`  | Debe existir cada id en `SITE_TAGS`                              |
 | `terms`   | string                     | Sinónimos de búsqueda en ambos idiomas, separados por espacios   |
 | `title`   | `{ es, en }`               | Título del post                                                  |
-| `excerpt` | `{ es, en }` | Párrafo corto de la card, debajo de la imagen cuando exista |
-| `cardImage` | `{ src, alt: { es, en } }` | **Obligatoria en posts nuevos**: imagen editorial local de la card; aparece entre título y extracto |
+| `excerpt` | `{ es, en }` | Párrafo corto de la card, antes de la imagen |
+| `cardImage` | `{ src, alt: { es, en } }` | **Obligatoria en posts nuevos**: imagen editorial local de la card; aparece entre extracto y tags |
 | `kicker`  | `{ es, en }`               | Texto sobre el título en la pantalla del artículo (p. ej. `"Post 02 · ..."`) |
 | `toc`     | `[{ id, es, en }]`         | Entradas del índice lateral; `id` debe coincidir con el `id` del `<h2>` correspondiente en el `bodyHtml` |
 
@@ -111,7 +111,7 @@ Sigue estos pasos en orden. Esta guía está pensada para que cualquier agente d
 
 1. **Elige un `id` (slug) único**, en minúsculas y con guiones (p. ej. `"segundo-post"`). Debe ser distinto de todos los `id` ya existentes en `js/data/posts-meta.js`.
 
-2. **Añade el objeto de metadata** en `js/data/posts-meta.js`, dentro del array `window.SITE_POSTS_META`. Insértalo en la posición correcta según fecha (el array va del más reciente al más antiguo, y `number` es correlativo, p. ej. `"02"` para el segundo post). Rellena todos los campos de la tabla de la sección anterior. **Todo post nuevo debe incluir `cardImage` con una imagen editorial local y `alt` ES/EN**; la home renderiza siempre título → imagen → extracto → tags. Si el post usa un tag que no existe todavía, añádelo primero a `js/data/tags.js`.
+2. **Añade el objeto de metadata** en `js/data/posts-meta.js`, dentro del array `window.SITE_POSTS_META`. Insértalo en la posición correcta según fecha (el array va del más reciente al más antiguo, y `number` es correlativo, p. ej. `"02"` para el segundo post). Rellena todos los campos de la tabla de la sección anterior. **Todo post nuevo debe incluir `cardImage` con una imagen editorial local y `alt` ES/EN**; la home renderiza siempre título → extracto → imagen → tags. Si el post usa un tag que no existe todavía, añádelo primero a `js/data/tags.js`.
 
 3. **Crea el fichero de contenido** en `js/data/posts/<id>.js` (usa el mismo `id` elegido en el paso 1) con esta forma exacta:
 

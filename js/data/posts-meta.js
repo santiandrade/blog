@@ -18,8 +18,8 @@
 //   tags      ids de js/data/tags.js
 //   terms     texto de sinónimos (ambos idiomas) usado por el buscador
 //   title     { es, en }
-//   excerpt   { es, en } — párrafo corto usado en la card de la home
-//   cardImage { src, alt: { es, en } } — imagen editorial local de la card
+//   excerpt   { es, en } — párrafo corto usado en la card de la home, antes de la imagen
+//   cardImage { src, alt: { es, en } } — imagen editorial local, entre extracto y tags
 //   kicker    { es, en } — categoría mostrada encima del título del artículo
 //   toc       [{ id, es, en }] — índice lateral del artículo
 window.SITE_POSTS_META = [

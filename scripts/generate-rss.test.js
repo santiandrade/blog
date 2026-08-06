@@ -247,7 +247,7 @@ test("the automation post is registered with a physical permalink and local hero
   assert.match(shell, new RegExp(`js/data/posts/${slug}\\.js`));
 });
 
-test("the automation card includes its local editorial image between title and excerpt", () => {
+test("the automation card places its local editorial image between excerpt and tags", () => {
   const root = path.resolve(__dirname, "..");
   const slug = "automatizaciones-ia-que-saben-cuando-callarse";
   const posts = loadPosts(path.join(root, "js", "data", "posts-meta.js"));
@@ -265,7 +265,11 @@ test("the automation card includes its local editorial image between title and e
   assert.match(main, /post\.cardImage/);
   assert.match(main, /data-alt-es=/);
   assert.match(main, /data-alt-en=/);
-  assert.ok(main.indexOf('class="post-card-image"') < main.indexOf('"<p>" \+ dualSpan\(post\.excerpt\)'));
+  const titleIndex = main.indexOf("'<h2><a href=\"' + postPath(post.id)");
+  const excerptIndex = main.indexOf('"<p>" + dualSpan(post.excerpt)');
+  const imageIndex = main.indexOf('class="post-card-image"');
+  const tagsIndex = main.indexOf('class="post-card-tags"');
+  assert.ok(titleIndex < excerptIndex && excerptIndex < imageIndex && imageIndex < tagsIndex);
 });
 
 test("every physical shell registers the complete post list", () => {
