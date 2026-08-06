@@ -7,6 +7,13 @@
     <language>es-ES</language>
     <atom:link href="https://santiandrade.github.io/blog/feed.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>Automatizaciones de IA que saben cuándo callarse</title>
+      <description>Una automatización útil no necesita anunciar cada éxito. Así diseño tareas que guardan silencio cuando todo funciona, avisan cuando algo cambia y nunca confunden un error con la ausencia de novedades.</description>
+      <pubDate>Thu, 06 Aug 2026 00:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://santiandrade.github.io/blog/automatizaciones-ia-que-saben-cuando-callarse/</guid>
+      <link>https://santiandrade.github.io/blog/automatizaciones-ia-que-saben-cuando-callarse/?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=blog_feed</link>
+    </item>
+    <item>
       <title>Cómo monté un segundo cerebro con Obsidian y Hermes</title>
       <description>Por qué una colección de notas no basta y cómo un agente puede convertirla en conocimiento vivo, trazable y útil.</description>
       <pubDate>Sat, 01 Aug 2026 00:00:00 GMT</pubDate>

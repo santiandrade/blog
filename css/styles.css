@@ -161,6 +161,7 @@ html[data-lang="en"] .lang-btn[data-set-lang="en"]{color:var(--accent)}
 .post-card-content h2{font-size:clamp(27px,3.4vw,42px);line-height:1.12}
 .post-card-content h2 a{color:var(--ink);border:0}
 .post-card-content h2 a:hover{color:var(--accent)}
+.post-card-image{display:block;width:100%;height:auto;border:2px solid var(--line)}
 .post-card-content>p{max-width:64ch;color:var(--muted)}
 .post-card-tags{display:flex;flex-wrap:wrap;gap:8px}
 .post-card-tags>span{border:1px solid var(--hair);padding:4px 8px;font-family:"IBM Plex Mono",monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
@@ -194,6 +195,9 @@ html[data-lang="en"] .lang-btn[data-set-lang="en"]{color:var(--accent)}
 .post-body{max-width:70ch;display:flex;flex-direction:column;gap:30px}
 .post-intro{font-size:23px;line-height:1.5;text-wrap:pretty}
 .post-body p{text-wrap:pretty}
+.post-hero{margin:0;display:flex;flex-direction:column;align-items:center;gap:10px}
+.post-hero img{display:block;max-width:100%;height:auto}
+.post-hero figcaption{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--muted);text-align:center}
 .post-body h2{font-size:30px;padding-top:14px;border-top:2px solid var(--line)}
 .post-bullets{margin:0;padding-left:1.35em;display:flex;flex-direction:column;gap:14px}
 .post-bullets li::marker{color:var(--accent)}
