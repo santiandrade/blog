@@ -222,6 +222,16 @@ test("check mode fails when feeds are absent or metadata changes", (t) => {
   assert.throws(() => generateFeeds(fixture.root, true), /desactualizado/);
 });
 
+test("post card excerpts use the full content column width", () => {
+  const root = path.resolve(__dirname, "..");
+  const styles = fs.readFileSync(path.join(root, "css", "styles.css"), "utf8");
+  const rule = styles.match(/\.post-card-content>p\{([^}]*)\}/);
+
+  assert.ok(rule, "post-card excerpt rule must exist");
+  assert.match(rule[1], /width:100%/);
+  assert.doesNotMatch(rule[1], /max-width/);
+});
+
 test("the automation post is registered with a physical permalink and local hero", () => {
   const root = path.resolve(__dirname, "..");
   const slug = "automatizaciones-ia-que-saben-cuando-callarse";
