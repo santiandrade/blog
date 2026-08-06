@@ -67,13 +67,15 @@ Array de objetos, uno por post, ordenado del más reciente al más antiguo. Cont
 | `tags`    | array de ids de `tags.js`  | Debe existir cada id en `SITE_TAGS`                              |
 | `terms`   | string                     | Sinónimos de búsqueda en ambos idiomas, separados por espacios   |
 | `title`   | `{ es, en }`               | Título del post                                                  |
-| `excerpt` | `{ es, en }`               | Párrafo corto de la card en la home                              |
+| `excerpt` | `{ es, en }` | Párrafo corto de la card, debajo de la imagen cuando exista |
+| `cardImage` | `{ src, alt: { es, en } }` | **Obligatoria en posts nuevos**: imagen editorial local de la card; aparece entre título y extracto |
 | `kicker`  | `{ es, en }`               | Texto sobre el título en la pantalla del artículo (p. ej. `"Post 02 · ..."`) |
 | `toc`     | `[{ id, es, en }]`         | Entradas del índice lateral; `id` debe coincidir con el `id` del `<h2>` correspondiente en el `bodyHtml` |
 
 **`js/data/posts/<id>.js` → `window.SITE_POST_BODIES["<id>"]`**
-Un fichero por post. Cada uno hace `window.SITE_POST_BODIES = window.SITE_POST_BODIES || {};` y luego `window.SITE_POST_BODIES["<id>"] = { introHtml, bodyHtml };`:
+Un fichero por post. Cada uno hace `window.SITE_POST_BODIES = window.SITE_POST_BODIES || {};` y luego registra `{ heroHtml?, introHtml, bodyHtml }`:
 
+- `heroHtml` — opcional: figura editorial del artículo, antes de la entradilla. Si se usa, la imagen lleva `data-alt-es`, `data-alt-en` y un `alt` inicial en español; `main.js` lo sincroniza al cambiar de idioma.
 - `introHtml` — el párrafo introductorio del artículo (el que va antes del primer `<h2>`).
 - `bodyHtml` — el resto del artículo, desde el primer `<h2 id="s1">` en adelante (secciones, callouts, tablas, listas...). **No** incluye el `<nav class="post-pair">` final ni el párrafo intro: esos los añade `renderPost()` en `js/main.js` automáticamente.
 
@@ -109,7 +111,7 @@ Sigue estos pasos en orden. Esta guía está pensada para que cualquier agente d
 
 1. **Elige un `id` (slug) único**, en minúsculas y con guiones (p. ej. `"segundo-post"`). Debe ser distinto de todos los `id` ya existentes en `js/data/posts-meta.js`.
 
-2. **Añade el objeto de metadata** en `js/data/posts-meta.js`, dentro del array `window.SITE_POSTS_META`. Insértalo en la posición correcta según fecha (el array va del más reciente al más antiguo, y `number` es correlativo, p. ej. `"02"` para el segundo post). Rellena todos los campos de la tabla de la sección anterior. Si el post usa un tag que no existe todavía, añádelo primero a `js/data/tags.js`.
+2. **Añade el objeto de metadata** en `js/data/posts-meta.js`, dentro del array `window.SITE_POSTS_META`. Insértalo en la posición correcta según fecha (el array va del más reciente al más antiguo, y `number` es correlativo, p. ej. `"02"` para el segundo post). Rellena todos los campos de la tabla de la sección anterior. **Todo post nuevo debe incluir `cardImage` con una imagen editorial local y `alt` ES/EN**; la home renderiza siempre título → imagen → extracto → tags. Si el post usa un tag que no existe todavía, añádelo primero a `js/data/tags.js`.
 
 3. **Crea el fichero de contenido** en `js/data/posts/<id>.js` (usa el mismo `id` elegido en el paso 1) con esta forma exacta:
 
@@ -130,11 +132,13 @@ Sigue estos pasos en orden. Esta guía está pensada para que cualquier agente d
    - No incluyas el párrafo introductorio dentro de `bodyHtml` (va en `introHtml`) ni el nav de "volver a todos los posts" al final (lo añade `renderPost()` automáticamente).
    - Todo el texto, sin excepción, en pares `<span data-l="es">` / `<span data-l="en">` pegados — nunca texto plano sin envolver, o se mostrará en ambos idiomas a la vez.
 
-4. **Registra el script en `index.html`**, añadiendo una línea junto a las de los demás posts, antes de `<script src="js/main.js" defer>`:
+4. **Registra el script en todos los shells físicos de producción**, añadiendo una línea junto a las de los demás posts, antes de `<script src="js/main.js" defer>` en `index.html` y en cada `<id>/index.html` existente. Actualiza también el contador de posts de cada shell:
 
    ```html
    <script src="js/data/posts/<id>.js" defer></script>
    ```
+
+   Guarda `cardImage.src` en `assets/posts/` con un nombre estable y relativo (por ejemplo, `assets/posts/<id>.jpg`); no dependas de una URL temporal o remota.
 
 5. **Crea `<id>/index.html` para la URL permanente.** Copia el `index.html` raíz, añade `<meta name="initial-post" content="<id>">` y `<base href="../">`, y sustituye `title`, descripción, canonical, Open Graph y Twitter por los del artículo. GitHub Pages podrá servir así `/blog/<id>/` con estado HTTP 200 y los robots sociales recibirán metadatos propios sin depender de ejecutar JavaScript.
 

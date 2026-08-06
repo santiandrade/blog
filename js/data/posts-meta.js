@@ -19,6 +19,7 @@
 //   terms     texto de sinónimos (ambos idiomas) usado por el buscador
 //   title     { es, en }
 //   excerpt   { es, en } — párrafo corto usado en la card de la home
+//   cardImage { src, alt: { es, en } } — imagen editorial local de la card
 //   kicker    { es, en } — categoría mostrada encima del título del artículo
 //   toc       [{ id, es, en }] — índice lateral del artículo
 window.SITE_POSTS_META = [
@@ -36,6 +37,13 @@ window.SITE_POSTS_META = [
     excerpt: {
       es: "Una automatización útil no necesita anunciar cada éxito. Así diseño tareas que guardan silencio cuando todo funciona, avisan cuando algo cambia y nunca confunden un error con la ausencia de novedades.",
       en: "A useful automation does not need to announce every success. Here is how I design tasks that stay quiet when everything works, notify when something changes and never mistake an error for no news."
+    },
+    cardImage: {
+      src: "assets/posts/automatizaciones-ia-que-saben-cuando-callarse.svg",
+      alt: {
+        es: "Ilustración editorial de una automatización que decide entre callar, avisar y fallar.",
+        en: "Editorial illustration of an automation deciding whether to stay quiet, notify or fail."
+      }
     },
     kicker: {
       es: "Post 03 · Automatización",
