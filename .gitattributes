@@ -1,0 +1,4 @@
+# El generador RSS escribe siempre con LF y `--check` compara byte a byte.
+# Sin esto, core.autocrlf=true deja CRLF en el working copy de Windows y el
+# check falla en local aunque el contenido sea idéntico.
+*.xml text eol=lf

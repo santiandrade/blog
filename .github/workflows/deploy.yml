@@ -1,0 +1,52 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Un único deploy a la vez; no cancelamos el que ya está en curso para no
+# dejar el servicio de Pages a medias.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Comprobar el generador RSS
+        run: node --test scripts/generate-rss.test.js
+
+      - name: Comprobar que los feeds versionados están al día
+        run: node scripts/generate-rss.js --check
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    # El backend de Pages ha tardado más de 10 min en sincronizar en algunas
+    # ocasiones; damos margen de sobra al job y al polling de deploy-pages.
+    timeout-minutes: 40
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
+        with:
+          timeout: 1800000
