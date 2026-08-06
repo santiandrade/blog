@@ -222,12 +222,55 @@ test("check mode fails when feeds are absent or metadata changes", (t) => {
   assert.throws(() => generateFeeds(fixture.root, true), /desactualizado/);
 });
 
+test("the automation post is registered with a physical permalink and local hero", () => {
+  const root = path.resolve(__dirname, "..");
+  const slug = "automatizaciones-ia-que-saben-cuando-callarse";
+  const posts = loadPosts(path.join(root, "js", "data", "posts-meta.js"));
+  const post = posts.find((item) => item.id === slug);
+
+  assert.ok(post, "the new post must be listed in metadata");
+  assert.equal(post.number, "03");
+  assert.ok(fs.existsSync(path.join(root, "js", "data", "posts", `${slug}.js`)));
+  assert.ok(fs.existsSync(path.join(root, slug, "index.html")));
+  assert.ok(fs.existsSync(path.join(root, "assets", "posts", `${slug}.svg`)));
+
+  const body = fs.readFileSync(path.join(root, "js", "data", "posts", `${slug}.js`), "utf8");
+  assert.match(body, /heroHtml:/);
+  assert.match(body, new RegExp(`assets/posts/${slug}\\.svg`));
+  assert.match(body, /<figure[^>]*class="post-hero"/);
+  assert.match(body, /data-alt-es="Ilustración editorial de una automatización que decide entre callar, avisar y fallar\./);
+  assert.match(body, /data-alt-en="Editorial illustration of an automation deciding whether to stay quiet, notify or fail\./);
+  assert.match(body, /<figcaption>/);
+
+  const shell = fs.readFileSync(path.join(root, slug, "index.html"), "utf8");
+  assert.match(shell, new RegExp(`initial-post" content="${slug}"`));
+  assert.match(shell, new RegExp(`js/data/posts/${slug}\\.js`));
+});
+
+test("every physical shell registers the complete post list", () => {
+  const root = path.resolve(__dirname, "..");
+  const shells = [
+    "index.html",
+    "hermes-agent/index.html",
+    "segundo-cerebro-obsidian-hermes/index.html",
+    "automatizaciones-ia-que-saben-cuando-callarse/index.html"
+  ];
+  const slug = "automatizaciones-ia-que-saben-cuando-callarse";
+
+  for (const shell of shells) {
+    const html = fs.readFileSync(path.join(root, shell), "utf8");
+    assert.match(html, /3 posts/);
+    assert.match(html, new RegExp(`js/data/posts/${slug}\\.js`));
+  }
+});
+
 test("every production HTML shell exposes both feeds", () => {
   const root = path.resolve(__dirname, "..");
   const shells = [
     "index.html",
     "hermes-agent/index.html",
-    "segundo-cerebro-obsidian-hermes/index.html"
+    "segundo-cerebro-obsidian-hermes/index.html",
+    "automatizaciones-ia-que-saben-cuando-callarse/index.html"
   ];
 
   for (const shell of shells) {

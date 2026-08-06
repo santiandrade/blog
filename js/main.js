@@ -119,6 +119,12 @@
     if (input) input.placeholder = lang === "en" ? "Search…" : "Buscar…";
   }
 
+  function syncLocalizedImageAlts(lang) {
+    document.querySelectorAll("img[data-alt-es][data-alt-en]").forEach(function (image) {
+      image.alt = lang === "en" ? image.dataset.altEn : image.dataset.altEs;
+    });
+  }
+
   function initState() {
     root.dataset.theme = localStorage.getItem("sa-theme") || "light";
     root.dataset.lang = localStorage.getItem("sa-lang") === "en" ? "en" : "es";
@@ -179,6 +185,7 @@
     root.lang = lang;
     rssCopyToken++;
     syncPlaceholder(lang);
+    syncLocalizedImageAlts(lang);
     var rssCopyStatus = document.querySelector("[data-rss-copy-status]");
     if (rssCopyStatus) rssCopyStatus.textContent = "";
     localStorage.setItem("sa-lang", lang);
@@ -284,6 +291,7 @@
     var body = document.querySelector("[data-post-body]");
     if (body) {
       body.innerHTML =
+        (content.heroHtml || "") +
         '<p class="post-intro">' + content.introHtml + "</p>" +
         content.bodyHtml +
         '<nav class="post-pair post-pair--single" data-r="pair">' +
@@ -292,6 +300,7 @@
             "<strong>" + dualSpan({ es: "Todos los posts", en: "All posts" }) + "</strong>" +
           "</a>" +
         "</nav>";
+      syncLocalizedImageAlts(root.dataset.lang);
     }
 
     setupTocObserver();
