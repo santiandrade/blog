@@ -39,14 +39,22 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
-    # El backend de Pages ha tardado más de 10 min en sincronizar en algunas
-    # ocasiones; damos margen de sobra al job y al polling de deploy-pages.
-    timeout-minutes: 40
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      # No se le pasa `timeout`: deploy-pages lo capa a MAX_TIMEOUT = 600000 ms
+      # (10 min), que es además su valor por defecto, así que cualquier cifra
+      # mayor se ignora con un warning y sólo confunde a quien lea esto.
+      #
+      # Si el step aborta con "Timeout reached, aborting!", el backend de Pages
+      # está tardando de más en sincronizar; no es un problema del sitio ni del
+      # artefacto. El remedio es relanzar el job (`gh run rerun <id> --failed`),
+      # que es lo que resolvió el incidente del 2026-08-06.
+      #
+      # Ojo al diagnosticar: `GET /repos/{owner}/{repo}/pages` puede quedarse
+      # devolviendo "status": "errored" indefinidamente aunque el deploy vaya
+      # bien. La fuente de verdad es el estado del deployment y el
+      # Last-Modified del sitio publicado.
       - id: deployment
         uses: actions/deploy-pages@v4
-        with:
-          timeout: 1800000
