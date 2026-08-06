@@ -39,7 +39,7 @@ window.SITE_POSTS_META = [
       en: "A useful automation does not need to announce every success. Here is how I design tasks that stay quiet when everything works, notify when something changes and never mistake an error for no news."
     },
     cardImage: {
-      src: "assets/posts/automatizaciones-ia-que-saben-cuando-callarse.svg",
+      src: "assets/posts/automatizaciones-ia-que-saben-cuando-callarse.png",
       alt: {
         es: "Ilustración editorial de una automatización que decide entre callar, avisar y fallar.",
         en: "Editorial illustration of an automation deciding whether to stay quiet, notify or fail."
@@ -75,6 +75,13 @@ window.SITE_POSTS_META = [
       es: "Por qué una colección de notas no basta y cómo un agente puede convertirla en conocimiento vivo, trazable y útil.",
       en: "Why a collection of notes is not enough, and how an agent can turn it into living, traceable and useful knowledge."
     },
+    cardImage: {
+      src: "assets/posts/segundo-cerebro-obsidian-hermes.png",
+      alt: {
+        es: "Ilustración editorial de un agente de IA organizando fuentes y conocimiento con revisión humana.",
+        en: "Editorial illustration of an AI agent organising sources and knowledge with human review."
+      }
+    },
     kicker: {
       es: "Post 02 · Segundo cerebro",
       en: "Post 02 · Second brain"
@@ -104,6 +111,13 @@ window.SITE_POSTS_META = [
     excerpt: {
       es: "Qué ocurre cuando la IA deja de vivir en una pestaña y empieza a recordar, usar herramientas y ayudarte en el día a día.",
       en: "What happens when AI stops living in a browser tab and starts remembering, using tools and helping in everyday life."
+    },
+    cardImage: {
+      src: "assets/posts/hermes-agent.png",
+      alt: {
+        es: "Ilustración editorial de una persona y un agente de IA colaborando en un flujo de trabajo con controles de seguridad.",
+        en: "Editorial illustration of a person and an AI agent collaborating in a workflow with security controls."
+      }
     },
     kicker: {
       es: "Post 01 · Agentes de IA",

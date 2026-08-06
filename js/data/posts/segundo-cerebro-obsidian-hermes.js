@@ -2,6 +2,11 @@
 // (fecha, tags, título, TOC...) vive en js/data/posts-meta.js.
 window.SITE_POST_BODIES = window.SITE_POST_BODIES || {};
 window.SITE_POST_BODIES["segundo-cerebro-obsidian-hermes"] = {
+  heroHtml: `
+    <figure class="post-hero">
+      <img src="assets/posts/segundo-cerebro-obsidian-hermes.png" data-alt-es="Ilustración editorial de un agente de IA organizando fuentes y conocimiento con revisión humana." data-alt-en="Editorial illustration of an AI agent organising sources and knowledge with human review." alt="Ilustración editorial de un agente de IA organizando fuentes y conocimiento con revisión humana.">
+      <figcaption><span data-l="es">Un agente organiza fuentes y conocimiento, con una persona validando el resultado.</span><span data-l="en">An agent organises sources and knowledge while a person validates the result.</span></figcaption>
+    </figure>`,
   introHtml: `<span data-l="es">Al principio, «segundo cerebro» significaba para mí guardar notas con la esperanza de que mi yo del futuro supiera encontrarlas. El resultado se parecía menos a una memoria ampliada y más a un trastero digital. La pieza que faltaba no era otra aplicación: era alguien capaz de mantener el conocimiento. Por eso combiné Obsidian con TARS, mi agente en Hermes, y convertí una colección de Markdown en un sistema vivo.</span><span data-l="en">At first, “second brain” meant saving notes in the hope that my future self would know how to find them. The result looked less like expanded memory and more like a digital storage room. The missing piece was not another app: it was someone capable of maintaining the knowledge. That is why I combined Obsidian with TARS, my Hermes agent, and turned a collection of Markdown files into a living system.</span>`,
   bodyHtml: `
     <h2 id="s1">01 · <span data-l="es">El problema no era recordar, sino mantener</span><span data-l="en">The problem was not remembering, but maintaining</span></h2>

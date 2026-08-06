@@ -232,11 +232,11 @@ test("the automation post is registered with a physical permalink and local hero
   assert.equal(post.number, "03");
   assert.ok(fs.existsSync(path.join(root, "js", "data", "posts", `${slug}.js`)));
   assert.ok(fs.existsSync(path.join(root, slug, "index.html")));
-  assert.ok(fs.existsSync(path.join(root, "assets", "posts", `${slug}.svg`)));
+  assert.ok(fs.existsSync(path.join(root, "assets", "posts", `${slug}.png`)));
 
   const body = fs.readFileSync(path.join(root, "js", "data", "posts", `${slug}.js`), "utf8");
   assert.match(body, /heroHtml:/);
-  assert.match(body, new RegExp(`assets/posts/${slug}\\.svg`));
+  assert.match(body, new RegExp(`assets/posts/${slug}\\.png`));
   assert.match(body, /<figure[^>]*class="post-hero"/);
   assert.match(body, /data-alt-es="Ilustración editorial de una automatización que decide entre callar, avisar y fallar\./);
   assert.match(body, /data-alt-en="Editorial illustration of an automation deciding whether to stay quiet, notify or fail\./);
@@ -255,7 +255,7 @@ test("the automation card places its local editorial image between excerpt and t
   const main = fs.readFileSync(path.join(root, "js", "main.js"), "utf8");
 
   assert.deepEqual(post.cardImage, {
-    src: `assets/posts/${slug}.svg`,
+    src: `assets/posts/${slug}.png`,
     alt: {
       es: "Ilustración editorial de una automatización que decide entre callar, avisar y fallar.",
       en: "Editorial illustration of an automation deciding whether to stay quiet, notify or fail."
@@ -270,6 +270,36 @@ test("the automation card places its local editorial image between excerpt and t
   const imageIndex = main.indexOf('class="post-card-image"');
   const tagsIndex = main.indexOf('class="post-card-tags"');
   assert.ok(titleIndex < excerptIndex && excerptIndex < imageIndex && imageIndex < tagsIndex);
+});
+
+test("the first two posts register local PNG illustrations for cards and article heroes", () => {
+  const root = path.resolve(__dirname, "..");
+  const posts = loadPosts(path.join(root, "js", "data", "posts-meta.js"));
+  const expected = {
+    "hermes-agent": {
+      es: "Ilustración editorial de una persona y un agente de IA colaborando en un flujo de trabajo con controles de seguridad.",
+      en: "Editorial illustration of a person and an AI agent collaborating in a workflow with security controls."
+    },
+    "segundo-cerebro-obsidian-hermes": {
+      es: "Ilustración editorial de un agente de IA organizando fuentes y conocimiento con revisión humana.",
+      en: "Editorial illustration of an AI agent organising sources and knowledge with human review."
+    }
+  };
+
+  for (const [slug, alt] of Object.entries(expected)) {
+    const post = posts.find((item) => item.id === slug);
+    assert.ok(post, `${slug} must be listed in metadata`);
+    assert.deepEqual(post.cardImage, { src: `assets/posts/${slug}.png`, alt });
+    assert.ok(fs.existsSync(path.join(root, "assets", "posts", `${slug}.png`)));
+
+    const body = fs.readFileSync(path.join(root, "js", "data", "posts", `${slug}.js`), "utf8");
+    assert.match(body, /heroHtml:/);
+    assert.match(body, new RegExp(`assets/posts/${slug}\\.png`));
+    assert.match(body, /<figure[^>]*class="post-hero"/);
+    assert.match(body, new RegExp(`data-alt-es="${alt.es}"`));
+    assert.match(body, new RegExp(`data-alt-en="${alt.en}"`));
+    assert.match(body, /<figcaption>/);
+  }
 });
 
 test("every physical shell registers the complete post list", () => {

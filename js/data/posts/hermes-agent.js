@@ -2,6 +2,11 @@
 // TOC...) vive en js/data/posts-meta.js — aquí solo el HTML del artículo.
 window.SITE_POST_BODIES = window.SITE_POST_BODIES || {};
 window.SITE_POST_BODIES["hermes-agent"] = {
+  heroHtml: `
+    <figure class="post-hero">
+      <img src="assets/posts/hermes-agent.png" data-alt-es="Ilustración editorial de una persona y un agente de IA colaborando en un flujo de trabajo con controles de seguridad." data-alt-en="Editorial illustration of a person and an AI agent collaborating in a workflow with security controls." alt="Ilustración editorial de una persona y un agente de IA colaborando en un flujo de trabajo con controles de seguridad.">
+      <figcaption><span data-l="es">Una persona y un agente colaboran con controles de seguridad y revisión humana.</span><span data-l="en">A person and an agent collaborate with security controls and human review.</span></figcaption>
+    </figure>`,
   introHtml: `<span data-l="es">Al principio usaba la inteligencia artificial como usamos casi todos una herramienta nueva: abría una pestaña, hacía una pregunta, copiaba el resultado y seguía con mi vida. Era útil, pero cada conversación empezaba prácticamente desde cero. Yo no quería otro chat. Quería un asistente que entendiera mi contexto, pudiera hacer cosas y mejorase conmigo.</span><span data-l="en">At first I used artificial intelligence the way most of us use a new tool: I opened a tab, asked a question, copied the result and carried on with my life. It was useful, but every conversation started almost from scratch. I did not want another chat. I wanted an assistant that understood my context, could do things and improved alongside me.</span>`,
   bodyHtml: `
     <h2 id="s1">01 · <span data-l="es">Por qué crear un agente</span><span data-l="en">Why build an agent</span></h2>
