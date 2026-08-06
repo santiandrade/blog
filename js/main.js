@@ -262,7 +262,6 @@
     var header = document.querySelector("[data-post-header]");
     if (header) {
       header.innerHTML =
-        '<p class="post-kicker">' + dualSpan(post.kicker) + "</p>" +
         '<h1 class="post-title">' + dualSpan(post.title) + "</h1>" +
         '<div class="post-meta">' +
           "<span>" + post.date + "</span>" +
