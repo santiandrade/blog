@@ -20,9 +20,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: '22'
 
@@ -32,9 +32,14 @@ jobs:
       - name: Comprobar que los feeds versionados están al día
         run: node scripts/generate-rss.js --check
 
-      - uses: actions/upload-pages-artifact@v3
+      # include-hidden-files es obligatorio aquí: desde la v4 esta acción
+      # excluye los ficheros que empiezan por punto, y sin esto `.nojekyll`
+      # desaparecería del sitio publicado. `.git` y `.github` quedan fuera
+      # igualmente, los excluye la acción pase lo que pase.
+      - uses: actions/upload-pages-artifact@v5
         with:
           path: .
+          include-hidden-files: true
 
   deploy:
     needs: build
@@ -57,4 +62,4 @@ jobs:
       # bien. La fuente de verdad es el estado del deployment y el
       # Last-Modified del sitio publicado.
       - id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
