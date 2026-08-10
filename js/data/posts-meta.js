@@ -24,6 +24,44 @@
 //   toc       [{ id, es, en }] — índice lateral del artículo
 window.SITE_POSTS_META = [
   {
+    id: "pdf-mensual-aviso-diario-automatizacion-familiar",
+    number: "04",
+    date: "2026.08.10",
+    readMin: 9,
+    tags: ["automatizacion", "hermes"],
+    terms: "pdf mensual aviso diario automatización automation ia ai hermes tabla table extracción extraction validación validation datos data script silencio silence documento document",
+    title: {
+      es: "De un PDF mensual a un aviso diario: automatizar una tarea familiar sin crear otra app",
+      en: "From a monthly PDF to a daily notification: automating a family task without another app"
+    },
+    excerpt: {
+      es: "Cada mes recibo un PDF con una tabla y cada día necesito una sola respuesta. Así lo convertí en avisos útiles mediante IA, validación visual y un pequeño script, sin construir otra app doméstica que mantener.",
+      en: "Every month I receive a PDF with a table, and every day I need one answer. Here is how I turned it into useful notifications with AI, visual validation and a small script, without building another household app to maintain."
+    },
+    cardImage: {
+      src: "assets/posts/pdf-mensual-aviso-diario-automatizacion-familiar.png",
+      alt: {
+        es: "Ilustración editorial de un PDF mensual convertido en datos por fecha y un aviso diario.",
+        en: "Editorial illustration of a monthly PDF converted into date-based data and a daily notification."
+      }
+    },
+    kicker: {
+      es: "Post 04 · Automatización",
+      en: "Post 04 · Automation"
+    },
+    toc: [
+      { id: "s1", es: "La pregunta diaria, no otra app", en: "The daily question, not another app" },
+      { id: "s2", es: "Un PDF no es una base de datos", en: "A PDF is not a database" },
+      { id: "s3", es: "Procesar una vez, consultar muchas", en: "Process once, consult many times" },
+      { id: "s4", es: "La revisión visual es obligatoria", en: "Visual review is mandatory" },
+      { id: "s5", es: "Los huecos también informan", en: "Gaps carry information too" },
+      { id: "s6", es: "Fuente, versiones e idempotencia", en: "Source, versions and idempotency" },
+      { id: "s7", es: "El contrato de silencio", en: "The silence contract" },
+      { id: "s8", es: "Mantenimiento y límites", en: "Maintenance and limits" },
+      { id: "s9", es: "Automatizar una fricción", en: "Automate a friction" }
+    ]
+  },
+  {
     id: "automatizaciones-ia-que-saben-cuando-callarse",
     number: "03",
     date: "2026.08.06",
