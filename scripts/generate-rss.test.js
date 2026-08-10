@@ -282,6 +282,30 @@ test("the automation card places its local editorial image between excerpt and t
   assert.ok(titleIndex < excerptIndex && excerptIndex < imageIndex && imageIndex < tagsIndex);
 });
 
+test("the monthly-PDF post is registered with a physical permalink, local hero and no family tag", () => {
+  const root = path.resolve(__dirname, "..");
+  const slug = "pdf-mensual-aviso-diario-automatizacion-familiar";
+  const posts = loadPosts(path.join(root, "js", "data", "posts-meta.js"));
+  const post = posts.find((item) => item.id === slug);
+
+  assert.ok(post, "the monthly-PDF post must be listed in metadata");
+  assert.equal(post.number, "04");
+  assert.ok(!post.tags.includes("familia"), "the editorially removed family tag must not be used");
+  assert.ok(fs.existsSync(path.join(root, "js", "data", "posts", `${slug}.js`)));
+  assert.ok(fs.existsSync(path.join(root, slug, "index.html")));
+  assert.ok(fs.existsSync(path.join(root, "assets", "posts", `${slug}.png`)));
+
+  const body = fs.readFileSync(path.join(root, "js", "data", "posts", `${slug}.js`), "utf8");
+  assert.match(body, /heroHtml:/);
+  assert.match(body, new RegExp(`assets/posts/${slug}\\.png`));
+  assert.match(body, /<figure[^>]*class="post-hero"/);
+  assert.match(body, /<figcaption>/);
+
+  const shell = fs.readFileSync(path.join(root, slug, "index.html"), "utf8");
+  assert.match(shell, new RegExp(`initial-post" content="${slug}"`));
+  assert.match(shell, new RegExp(`js/data/posts/${slug}\\.js`));
+});
+
 test("the first two posts register local PNG illustrations for cards and article heroes", () => {
   const root = path.resolve(__dirname, "..");
   const posts = loadPosts(path.join(root, "js", "data", "posts-meta.js"));
@@ -318,13 +342,14 @@ test("every physical shell registers the complete post list", () => {
     "index.html",
     "hermes-agent/index.html",
     "segundo-cerebro-obsidian-hermes/index.html",
-    "automatizaciones-ia-que-saben-cuando-callarse/index.html"
+    "automatizaciones-ia-que-saben-cuando-callarse/index.html",
+    "pdf-mensual-aviso-diario-automatizacion-familiar/index.html"
   ];
   const slug = "automatizaciones-ia-que-saben-cuando-callarse";
 
   for (const shell of shells) {
     const html = fs.readFileSync(path.join(root, shell), "utf8");
-    assert.match(html, /3 posts/);
+    assert.match(html, /4 posts/);
     assert.match(html, new RegExp(`js/data/posts/${slug}\\.js`));
   }
 });
@@ -335,7 +360,8 @@ test("every production HTML shell exposes both feeds", () => {
     "index.html",
     "hermes-agent/index.html",
     "segundo-cerebro-obsidian-hermes/index.html",
-    "automatizaciones-ia-que-saben-cuando-callarse/index.html"
+    "automatizaciones-ia-que-saben-cuando-callarse/index.html",
+    "pdf-mensual-aviso-diario-automatizacion-familiar/index.html"
   ];
 
   for (const shell of shells) {
