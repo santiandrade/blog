@@ -354,6 +354,22 @@ test("every physical shell registers the complete post list", () => {
   }
 });
 
+test("every article permalink exposes its local illustration to social crawlers", () => {
+  const root = path.resolve(__dirname, "..");
+  const posts = loadPosts(path.join(root, "js", "data", "posts-meta.js"));
+
+  for (const post of posts) {
+    const shell = fs.readFileSync(path.join(root, post.id, "index.html"), "utf8");
+    const imageUrl = `https://santiandrade.github.io/blog/${post.cardImage.src}`;
+
+    assert.match(post.cardImage.src, /^assets\/posts\/[^/]+\.png$/, post.id);
+    assert.ok(fs.existsSync(path.join(root, post.cardImage.src)), post.id);
+    assert.ok(shell.includes(`<meta property="og:image" content="${imageUrl}">`), post.id);
+    assert.ok(shell.includes(`<meta name="twitter:image" content="${imageUrl}">`), post.id);
+    assert.ok(shell.includes('<meta name="twitter:card" content="summary_large_image">'), post.id);
+  }
+});
+
 test("every production HTML shell exposes both feeds", () => {
   const root = path.resolve(__dirname, "..");
   const shells = [
