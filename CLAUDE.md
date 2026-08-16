@@ -140,7 +140,7 @@ Sigue estos pasos en orden. Esta guía está pensada para que cualquier agente d
 
    Guarda `cardImage.src` en `assets/posts/` con un nombre estable y relativo (por ejemplo, `assets/posts/<id>.jpg`); no dependas de una URL temporal o remota.
 
-5. **Crea `<id>/index.html` para la URL permanente.** Copia el `index.html` raíz, añade `<meta name="initial-post" content="<id>">` y `<base href="../">`, y sustituye `title`, descripción, canonical, Open Graph y Twitter por los del artículo. GitHub Pages podrá servir así `/blog/<id>/` con estado HTTP 200 y los robots sociales recibirán metadatos propios sin depender de ejecutar JavaScript.
+5. **Crea `<id>/index.html` para la URL permanente.** Copia el `index.html` raíz, añade `<meta name="initial-post" content="<id>">` y `<base href="../">`, y sustituye `title`, descripción, canonical, Open Graph y Twitter por los del artículo. Si el post tiene `cardImage.src`, el shell debe declarar `og:image` y `twitter:image` con la URL absoluta `https://santiandrade.github.io/blog/<cardImage.src>`, además de `twitter:card` con `summary_large_image`. GitHub Pages podrá servir así `/blog/<id>/` con estado HTTP 200 y los robots sociales recibirán metadatos propios sin depender de ejecutar JavaScript.
 
 6. **Regenera los feeds RSS** después de modificar `posts-meta.js` y comprueba que los XML versionados están actualizados:
 
