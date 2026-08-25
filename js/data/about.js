@@ -1,7 +1,7 @@
 // Contenido de la pantalla "Sobre mí" (data-screen="about").
 window.SITE_ABOUT = {
   portrait: {
-    src: "assets/Santi_ImgProfile.png",
+    src: "assets/Santi_ImgProfile.jpg",
     alt: "Santi Andrade"
   },
   hero: {
