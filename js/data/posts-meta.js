@@ -24,6 +24,43 @@
 //   toc       [{ id, es, en }] — índice lateral del artículo
 window.SITE_POSTS_META = [
   {
+    id: "spec-driven-development",
+    number: "05",
+    date: "2026.08.25",
+    readMin: 9,
+    tags: ["agentes"],
+    terms: "spec driven development spec-driven design especificación specification ia ai desarrollo software development programación coding claude code codex unity web arquitectura architecture decisiones decisions",
+    title: {
+      es: "Spec Driven Development con IA: cómo dejar de improvisar antes de programar",
+      en: "Spec Driven Development with AI: how to stop improvising before you code"
+    },
+    excerpt: {
+      es: "Antes de pedir código a una IA, defino el contrato: objetivos, límites, decisiones y pruebas. Así uso /spec y /spec-impl para reducir improvisación y convertir el código generado en una implementación verificable.",
+      en: "Before asking AI for code, I define the contract: goals, boundaries, decisions and tests. This is how I use /spec and /spec-impl to reduce improvisation and turn generated code into a verifiable implementation."
+    },
+    cardImage: {
+      src: "assets/posts/spec-driven-development.png",
+      alt: {
+        es: "Ilustración editorial de una persona definiendo una especificación con una IA antes de programar.",
+        en: "Editorial illustration of a person defining a specification with AI before coding."
+      }
+    },
+    kicker: {
+      es: "Post 05 · Desarrollo con IA",
+      en: "Post 05 · AI-assisted development"
+    },
+    toc: [
+      { id: "s1", es: "La velocidad también oculta decisiones", en: "Speed also hides decisions" },
+      { id: "s2", es: "La spec es el artefacto principal", en: "The spec is the main artefact" },
+      { id: "s3", es: "Primero una entrevista, después una orden", en: "First an interview, then an instruction" },
+      { id: "s4", es: "La aprobación humana es deliberada", en: "Human approval is deliberate" },
+      { id: "s5", es: "Qué hace cada una de las dos skills", en: "What each of the two skills does" },
+      { id: "s6", es: "El patrón no depende de la tecnología", en: "The pattern does not depend on technology" },
+      { id: "s7", es: "También hay casos en los que no la usaría", en: "There are also cases where I would not use it" },
+      { id: "s8", es: "Delega la ejecución, no el criterio", en: "Delegate execution, not judgement" }
+    ]
+  },
+  {
     id: "pdf-mensual-aviso-diario-automatizacion-familiar",
     number: "04",
     date: "2026.08.10",
