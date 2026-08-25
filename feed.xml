@@ -7,6 +7,13 @@
     <language>es-ES</language>
     <atom:link href="https://santiandrade.github.io/blog/feed.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>Spec Driven Development con IA: cómo dejar de improvisar antes de programar</title>
+      <description>Antes de pedir código a una IA, defino el contrato: objetivos, límites, decisiones y pruebas. Así uso /spec y /spec-impl para reducir improvisación y convertir el código generado en una implementación verificable.</description>
+      <pubDate>Tue, 25 Aug 2026 00:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://santiandrade.github.io/blog/spec-driven-development/</guid>
+      <link>https://santiandrade.github.io/blog/spec-driven-development/?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=blog_feed</link>
+    </item>
+    <item>
       <title>De un PDF mensual a un aviso diario: automatizar una tarea familiar sin crear otra app</title>
       <description>Cada mes recibo un PDF con una tabla y cada día necesito una sola respuesta. Así lo convertí en avisos útiles mediante IA, validación visual y un pequeño script, sin construir otra app doméstica que mantener.</description>
       <pubDate>Mon, 10 Aug 2026 00:00:00 GMT</pubDate>

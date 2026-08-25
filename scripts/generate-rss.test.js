@@ -306,6 +306,38 @@ test("the monthly-PDF post is registered with a physical permalink, local hero a
   assert.match(shell, new RegExp(`js/data/posts/${slug}\\.js`));
 });
 
+test("the spec-driven-development post is registered with a physical permalink and local hero", () => {
+  const root = path.resolve(__dirname, "..");
+  const slug = "spec-driven-development";
+  const posts = loadPosts(path.join(root, "js", "data", "posts-meta.js"));
+  const post = posts.find((item) => item.id === slug);
+
+  assert.ok(post, "the new post must be listed in metadata");
+  assert.equal(post.number, "05");
+  assert.ok(fs.existsSync(path.join(root, "js", "data", "posts", `${slug}.js`)));
+  assert.ok(fs.existsSync(path.join(root, slug, "index.html")));
+  assert.ok(fs.existsSync(path.join(root, "assets", "posts", `${slug}.png`)));
+  assert.deepEqual(post.cardImage, {
+    src: `assets/posts/${slug}.png`,
+    alt: {
+      es: "Ilustración editorial de una persona definiendo una especificación con una IA antes de programar.",
+      en: "Editorial illustration of a person defining a specification with AI before coding."
+    }
+  });
+
+  const body = fs.readFileSync(path.join(root, "js", "data", "posts", `${slug}.js`), "utf8");
+  assert.match(body, /heroHtml:/);
+  assert.match(body, new RegExp(`assets/posts/${slug}\\.png`));
+  assert.match(body, /<figure[^>]*class="post-hero"/);
+  assert.match(body, /data-alt-es="Ilustración editorial de una persona definiendo una especificación con una IA antes de programar\./);
+  assert.match(body, /data-alt-en="Editorial illustration of a person defining a specification with AI before coding\./);
+  assert.match(body, /<figcaption>/);
+
+  const shell = fs.readFileSync(path.join(root, slug, "index.html"), "utf8");
+  assert.match(shell, new RegExp(`initial-post" content="${slug}"`));
+  assert.match(shell, new RegExp(`js/data/posts/${slug}\\.js`));
+});
+
 test("the first two posts register local PNG illustrations for cards and article heroes", () => {
   const root = path.resolve(__dirname, "..");
   const posts = loadPosts(path.join(root, "js", "data", "posts-meta.js"));
@@ -343,14 +375,17 @@ test("every physical shell registers the complete post list", () => {
     "hermes-agent/index.html",
     "segundo-cerebro-obsidian-hermes/index.html",
     "automatizaciones-ia-que-saben-cuando-callarse/index.html",
-    "pdf-mensual-aviso-diario-automatizacion-familiar/index.html"
+    "pdf-mensual-aviso-diario-automatizacion-familiar/index.html",
+    "spec-driven-development/index.html"
   ];
-  const slug = "automatizaciones-ia-que-saben-cuando-callarse";
+  const posts = loadPosts(path.join(root, "js", "data", "posts-meta.js"));
 
   for (const shell of shells) {
     const html = fs.readFileSync(path.join(root, shell), "utf8");
-    assert.match(html, /4 posts/);
-    assert.match(html, new RegExp(`js/data/posts/${slug}\\.js`));
+    assert.match(html, new RegExp(`${posts.length} posts`));
+    for (const post of posts) {
+      assert.match(html, new RegExp(`js/data/posts/${post.id}\\.js`), `${shell} must register ${post.id}`);
+    }
   }
 });
 
@@ -377,7 +412,8 @@ test("every production HTML shell exposes both feeds", () => {
     "hermes-agent/index.html",
     "segundo-cerebro-obsidian-hermes/index.html",
     "automatizaciones-ia-que-saben-cuando-callarse/index.html",
-    "pdf-mensual-aviso-diario-automatizacion-familiar/index.html"
+    "pdf-mensual-aviso-diario-automatizacion-familiar/index.html",
+    "spec-driven-development/index.html"
   ];
 
   for (const shell of shells) {
