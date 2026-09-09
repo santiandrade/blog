@@ -5,5 +5,8 @@ window.SITE_TAGS = [
   { id: "hermes", es: "Hermes", en: "Hermes" },
   { id: "agentes", es: "Agentes", en: "Agents" },
   { id: "automatizacion", es: "Automatización", en: "Automation" },
+  { id: "gamedev", es: "Gamedev", en: "Gamedev" },
+  { id: "spec-driven-development", es: "Spec Driven Development", en: "Spec Driven Development" },
+  { id: "herramientas", es: "Herramientas", en: "Tools" },
   { id: "obsidian", es: "Obsidian", en: "Obsidian" }
 ];
