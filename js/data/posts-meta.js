@@ -65,7 +65,7 @@ window.SITE_POSTS_META = [
     number: "05",
     date: "2026.08.25",
     readMin: 9,
-    tags: ["agentes"],
+    tags: ["agentes", "spec-driven-development"],
     terms: "spec driven development spec-driven design especificación specification ia ai desarrollo software development programación coding claude code codex unity web arquitectura architecture decisiones decisions",
     title: {
       es: "Spec Driven Development con IA: cómo dejar de improvisar antes de programar",
