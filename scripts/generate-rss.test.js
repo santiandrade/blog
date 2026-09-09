@@ -376,7 +376,8 @@ test("every physical shell registers the complete post list", () => {
     "segundo-cerebro-obsidian-hermes/index.html",
     "automatizaciones-ia-que-saben-cuando-callarse/index.html",
     "pdf-mensual-aviso-diario-automatizacion-familiar/index.html",
-    "spec-driven-development/index.html"
+    "spec-driven-development/index.html",
+    "city-generator-unity-ia-spec-driven-development/index.html"
   ];
   const posts = loadPosts(path.join(root, "js", "data", "posts-meta.js"));
 
@@ -405,6 +406,46 @@ test("every article permalink exposes its local illustration to social crawlers"
   }
 });
 
+test("City Generator post is registered with its versioned illustration and permalink", () => {
+  const root = path.resolve(__dirname, "..");
+  const slug = "city-generator-unity-ia-spec-driven-development";
+  const posts = loadPosts(path.join(root, "js", "data", "posts-meta.js"));
+  const postMeta = posts.find((entry) => entry.id === slug);
+
+  assert.ok(postMeta, "City Generator metadata must be registered");
+  assert.equal(postMeta.number, "06");
+  assert.deepEqual(postMeta.tags, ["agentes", "gamedev", "spec-driven-development", "herramientas"]);
+  assert.match(postMeta.title.es, /City Generator/);
+  assert.match(postMeta.title.en, /City Generator/);
+
+  const body = fs.readFileSync(path.join(root, "js", "data", "posts", slug + ".js"), "utf8");
+  assert.match(body, /<figure class="post-hero">/);
+  assert.match(body, /assets\/posts\/city-generator-unity-ia-spec-driven-development\.png/);
+  assert.match(body, /data-l="es"/);
+  assert.match(body, /data-l="en"/);
+  assert.match(body, /data-alt-es="Ilustración editorial de una ciudad procedural generada a partir de una especificación y una configuración\./);
+  assert.match(body, /data-alt-en="Editorial illustration of a procedural city generated from a specification and configuration\./);
+  assert.match(body, /<figcaption>/);
+
+  const asset = path.join(root, "assets", "posts", slug + ".png");
+  assert.ok(fs.existsSync(asset), "illustration PNG must be versioned");
+  const shells = [
+    "index.html",
+    "hermes-agent/index.html",
+    "segundo-cerebro-obsidian-hermes/index.html",
+    "automatizaciones-ia-que-saben-cuando-callarse/index.html",
+    "pdf-mensual-aviso-diario-automatizacion-familiar/index.html",
+    "spec-driven-development/index.html",
+    slug + "/index.html"
+  ];
+  for (const shell of shells) {
+    const html = fs.readFileSync(path.join(root, shell), "utf8");
+    assert.match(html, /6 posts · actualizado septiembre 2026/, shell);
+    assert.match(html, /6 posts · updated September 2026/, shell);
+  }
+  assert.match(fs.readFileSync(path.join(root, slug, "index.html"), "utf8"), new RegExp('initial-post" content="' + slug + '"'));
+});
+
 test("every production HTML shell exposes both feeds", () => {
   const root = path.resolve(__dirname, "..");
   const shells = [
@@ -413,7 +454,8 @@ test("every production HTML shell exposes both feeds", () => {
     "segundo-cerebro-obsidian-hermes/index.html",
     "automatizaciones-ia-que-saben-cuando-callarse/index.html",
     "pdf-mensual-aviso-diario-automatizacion-familiar/index.html",
-    "spec-driven-development/index.html"
+    "spec-driven-development/index.html",
+    "city-generator-unity-ia-spec-driven-development/index.html"
   ];
 
   for (const shell of shells) {

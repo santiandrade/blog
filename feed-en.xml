@@ -7,6 +7,13 @@
     <language>en</language>
     <atom:link href="https://santiandrade.github.io/blog/feed-en.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>From a procedural city to a portable tool: how I use AI and specs in City Generator</title>
+      <description>City Generator turns a Unity scene into a walkable, configurable city. This is the process I use with AI and specs to keep a procedural idea from ending as a fragile demo, and turn it into a portable, verifiable tool.</description>
+      <pubDate>Thu, 10 Sep 2026 00:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://santiandrade.github.io/blog/city-generator-unity-ia-spec-driven-development/</guid>
+      <link>https://santiandrade.github.io/blog/city-generator-unity-ia-spec-driven-development/?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=blog_feed</link>
+    </item>
+    <item>
       <title>Spec Driven Development with AI: how to stop improvising before you code</title>
       <description>Before asking AI for code, I define the contract: goals, boundaries, decisions and tests. This is how I use /spec and /spec-impl to reduce improvisation and turn generated code into a verifiable implementation.</description>
       <pubDate>Tue, 25 Aug 2026 00:00:00 GMT</pubDate>

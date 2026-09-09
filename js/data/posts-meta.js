@@ -24,11 +24,48 @@
 //   toc       [{ id, es, en }] — índice lateral del artículo
 window.SITE_POSTS_META = [
   {
+    id: "city-generator-unity-ia-spec-driven-development",
+    number: "06",
+    date: "2026.09.10",
+    readMin: 10,
+    tags: ["agentes", "gamedev", "spec-driven-development", "herramientas"],
+    terms: "city generator unity ia ai spec driven development especificación specification desarrollo development procedural procedimental ciudad city gamedev herramientas tools ecs dots runtime editor prefabs tráfico traffic peatones pedestrians",
+    title: {
+      es: "De una ciudad procedural a una herramienta portable: cómo uso IA y specs en City Generator",
+      en: "From a procedural city to a portable tool: how I use AI and specs in City Generator"
+    },
+    excerpt: {
+      es: "City Generator convierte una escena de Unity en una ciudad recorrible y configurable. Este es el proceso con el que uso IA y specs para evitar que una idea procedural termine siendo una demo frágil y convertirla en una herramienta portable y verificable.",
+      en: "City Generator turns a Unity scene into a walkable, configurable city. This is the process I use with AI and specs to keep a procedural idea from ending as a fragile demo, and turn it into a portable, verifiable tool."
+    },
+    cardImage: {
+      src: "assets/posts/city-generator-unity-ia-spec-driven-development.png",
+      alt: {
+        es: "Ilustración editorial de una ciudad procedural generada a partir de una especificación y una configuración.",
+        en: "Editorial illustration of a procedural city generated from a specification and configuration."
+      }
+    },
+    kicker: {
+      es: "Post 06 · Gamedev con IA",
+      en: "Post 06 · AI-assisted gamedev"
+    },
+    toc: [
+      { id: "s1", es: "El problema real no era crear edificios", en: "The real problem was not creating buildings" },
+      { id: "s2", es: "Una spec antes que un prompt", en: "A spec before a prompt" },
+      { id: "s3", es: "De una configuración a una escena recorrible", en: "From configuration to a walkable scene" },
+      { id: "s4", es: "Portabilidad no es una nota al pie", en: "Portability is not a footnote" },
+      { id: "s5", es: "Qué aporta la IA —y qué no le delego", en: "What AI contributes—and what I do not delegate to it" },
+      { id: "s6", es: "Verificar es parte de construir", en: "Verification is part of building" },
+      { id: "s7", es: "De la herramienta a las demos jugables", en: "From the tool to playable demos" },
+      { id: "s8", es: "La pregunta que me queda", en: "The question I am left with" }
+    ]
+  },
+  {
     id: "spec-driven-development",
     number: "05",
     date: "2026.08.25",
     readMin: 9,
-    tags: ["agentes"],
+    tags: ["agentes", "spec-driven-development"],
     terms: "spec driven development spec-driven design especificación specification ia ai desarrollo software development programación coding claude code codex unity web arquitectura architecture decisiones decisions",
     title: {
       es: "Spec Driven Development con IA: cómo dejar de improvisar antes de programar",
